@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>Firebase</title>
+</head>
+<body>
+<h1 id="fh1"> Firebase Web</h1>
+<form onsubmit="adddata()">
+ <label>Product number</label><br>
+ <input type="number" id="p_num" value=""><br>
+ <label>Company</label><br>
+ <input type="text" id="company" value="Some data"><br>
+ <label>Name</label><br>
+ <input type="text" id="p_name" value="Some data"><br>
+ <label>Price</label><br>
+ <input type="text" id="price" value="Some data"><br>
+ <input type="submit" value="Submit"><br>
+</form><br>
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBab7oIwt3DZsrQtOExybe_aCPnictYpr4",
+    authDomain: "heart-of-the-cards-631a2.firebaseapp.com",
+    databaseURL: "https://heart-of-the-cards-631a2.firebaseio.com",
+    projectId: "heart-of-the-cards-631a2",
+    storageBucket: "heart-of-the-cards-631a2.appspot.com",
+    messagingSenderId: "614547051244",
+    appId: "1:614547051244:web:2dc4125fff36665eba8bc9",
+    measurementId: "G-C9H1V8YSH5"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<script src = "hotc.js"></script>
+<script src = "main.js"></script>
+</body>
+</html>
+
