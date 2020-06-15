@@ -1,16 +1,31 @@
+var fhRef = firebase.database().ref("cards").orderByKey();
+
+var primaryKey = 0;
+
+fhRef.once("value").then(function (snapshot) {
+ snapshot.forEach(function (childSnapshot) {
+ 	primaryKey = parseInt(childSnapshot.key)+1;
+ });
+});
+
+
+
 function adddata(){
-var pnum = document.getElementById("p_num").value;
- var p_company = document.getElementById("company").value;
- var pName = document.getElementById("p_name").value;
- var p_price= document.getElementById("price").value;
-var new_prod = "p" + pnum;
-var ref1 = firebase.database().ref("products/" + new_prod );
-ref1.set({
- company :p_company ,
- name :pName,
- price : p_price
+
+ var cardText = document.getElementById("card_text").value;
+if(cardText != ""){
+
+ //var cardImage = document.getElementById("card_image").value;
+ 
+var ref = firebase.database().ref("cards/" + primaryKey);
+primaryKey = primaryKey + 1;
+
+ref.set({
+ text :cardText
 });
 }
+}
+
 
 
 //add deck, add option, edit deck, edit option, draw card

@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
  <meta charset="UTF-8">
- <title>Firebase</title>
+ <title>Heart of the Cards Database Test</title>
 </head>
 <body>
-<h1 id="fh1"> Firebase Web</h1>
+<h1> Heart of the Cards Database Test</h1>
 <form onsubmit="adddata()">
- <label>Product number</label><br>
- <input type="number" id="p_num" value=""><br>
- <label>Company</label><br>
- <input type="text" id="company" value="Some data"><br>
- <label>Name</label><br>
- <input type="text" id="p_name" value="Some data"><br>
- <label>Price</label><br>
- <input type="text" id="price" value="Some data"><br>
- <input type="submit" value="Submit"><br>
+ 
+ <input type="text" id="card_text" placeholder="new option"><br>
+
+ 
+ <input type="submit" value="add"><br>
 </form><br>
+
+<input type = "button" value = "draw random card" onclick = "drawCard()"><br>
+<p id = "drawn_card"><br></p>
+
 
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
