@@ -44,13 +44,24 @@ class Deck {
 		deckInput.className="textInput";
 		deckInput.placeholder = "question " + decks.length;
 
+		deckInput.onkeyup = function(event){
+			event.preventDefault();
+    		if (event.keyCode === 13) {
+        		console.log("enter key pressed");
+        		updateDeckData(deck);	
+    		}
+		}
+
+
 		deckCell.appendChild(deckInput);
 		deckRow.appendChild(deckCell);
 		deckTable.appendChild(deckRow);
 
-
-		this.text = deckInput.value;
+		var deck = this;
+		this.deckRow = deckRow;
+		this.text = deckInput;
 		this.key = addDeckData(this);
+
 
 		var buttons = document.createElement("div");
 	
@@ -59,9 +70,8 @@ class Deck {
 		addCardButton.value = "add";
 
 		addCardButton.onclick = function(){
-			var newCard =  new Card(deckRow);
-			console.log(newCard);
-			console.log(cards);
+			var newCard =  new Card(deck);
+			
 			cards.push(newCard);
 			console.log(cards);
 			newCard.text.placeholder = "option " + cards.length ;
@@ -72,6 +82,7 @@ class Deck {
 		deleteButton.value = "trash";
 		deleteButton.onclick = function(){
 			deckTable.removeChild(deckRow);
+			deleteDeckData(deck);
 		}
 
 		var drawButton = document.createElement("INPUT");
@@ -97,6 +108,7 @@ class Card {
 	constructor(deck){
 
 		this.deck = deck;
+		console.log(deck.key +"  from card");
 		
 		var cardInput = document.createElement("INPUT");
 		cardInput.className="textInput";
@@ -107,7 +119,7 @@ class Card {
 		var cardCell = document.createElement("td");
 		cardCell.className = "card";
 		cardCell.appendChild(cardInput);
-		deck.appendChild(cardCell);
+		deck.deckRow.appendChild(cardCell);
 
 		var deleteCard = document.createElement("INPUT");
 		deleteCard.type = "button";

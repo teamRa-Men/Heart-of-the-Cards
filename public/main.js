@@ -1,11 +1,11 @@
-var fhRef = firebase.database().ref("user").orderByKey();
+var fhRef = firebase.database().ref("/user").orderByKey();
 
 function addDeckData(deck){
 	console.log("deck adding to database");
 	var deckText = deck.text.value;
 
 	var key = firebase.database().ref("/user").push({
-		
+		decktext: deckText
 		//user_key:;
 		//deck_key:;
 	}).key;
@@ -17,18 +17,22 @@ function updateDeckData(deck){
 	console.log("updating deck to database");
 	var deckText = deck.text.value;
 	firebase.database().ref("/user"+"/"+deck.key).set({
-		text :deckText
+		decktext :deckText
 		//user_key:;
 		//deck_key:;
 	});
 
 }
 
+function deleteDeckData(deck){
+	firebase.database().ref("/user"+"/"+deck.key).remove();
+}
+
 function addCardData(card){
 	console.log("card adding to database");
 	var cardText = card.text.value;
 	var key = firebase.database().ref("/user"+"/"+card.deck.key).push({
-		text :cardText
+		cardtext :cardText
 		//user_key:;
 		//deck_key:;
 	}).key;
@@ -40,7 +44,7 @@ function updateCardData(card){
 	var cardText = card.text.value;
 
 	firebase.database().ref("/user"+"/"+card.deck.key+"/"+card.key).set({
-		text :cardText
+		cardtext :cardText
 		//user_key:;
 		//deck_key:;
 	});
