@@ -1,0 +1,15 @@
+.card{
+	width: 120px;
+	height: 180px;
+	border-radius: 10px;
+	margin: 20px;
+	background-color: white;
+}
+
+.textInput{
+	width: 120px;
+	display: block;
+}
+.background{
+	background-color: gray;
+}

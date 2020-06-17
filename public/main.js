@@ -1,29 +1,53 @@
-var fhRef = firebase.database().ref("cards").orderByKey();
+var fhRef = firebase.database().ref("user").orderByKey();
 
-var primaryKey = 0;
+function addDeckData(deck){
+	console.log("deck adding to database");
+	var deckText = deck.text.value;
 
-fhRef.once("value").then(function (snapshot) {
- snapshot.forEach(function (childSnapshot) {
- 	primaryKey = parseInt(childSnapshot.key)+1;
- });
-});
-
-
-
-function adddata(){
-
- var cardText = document.getElementById("card_text").value;
-if(cardText != ""){
-
- //var cardImage = document.getElementById("card_image").value;
- 
-var ref = firebase.database().ref("cards/" + primaryKey);
-primaryKey = primaryKey + 1;
-
-ref.set({
- text :cardText
-});
+	var key = firebase.database().ref("/user").push({
+		text :deckText
+		//user_key:;
+		//deck_key:;
+	}).key;
+	console.log("deck " + key);
+	return key;
 }
+
+function updateDeckData(deck){
+	console.log("updating deck to database");
+	var deckText = deck.text.value;
+	firebase.database().ref("/user"+"/"+deck.key).set({
+		text :deckText
+		//user_key:;
+		//deck_key:;
+	});
+
+}
+
+function addCardData(card){
+	console.log("card adding to database");
+	var cardText = card.text.value;
+	var key = firebase.database().ref("/user"+"/"+card.deck.key).push({
+		text :cardText
+		//user_key:;
+		//deck_key:;
+	}).key;
+	return key;
+}
+
+function updateCardData(card){
+	console.log("updating card to database");
+	var cardText = card.text.value;
+
+	firebase.database().ref("/user"+"/"+card.deck.key+"/"+card.key).set({
+		text :cardText
+		//user_key:;
+		//deck_key:;
+	});
+}
+
+function deleteCardData(card){
+	firebase.database().ref("/user"+"/"+card.deck.key+"/"+card.key).remove();
 }
 
 

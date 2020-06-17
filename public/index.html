@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
  <meta charset="UTF-8">
+ <link rel="stylesheet" href = "hotc.css">
  <title>Heart of the Cards Database Test</title>
 </head>
-<body>
+<body class = "background">
 <h1> Heart of the Cards Database Test</h1>
+<!--
 <form onsubmit="adddata()">
  
  <input type="text" id="card_text" placeholder="new option"><br>
@@ -15,8 +17,19 @@
 </form><br>
 
 <input type = "button" value = "draw random card" onclick = "drawCard()"><br>
-<p id = "drawn_card"><br></p>
+<p id = "drawn_card"><br></p>-->
 
+
+<table id = "hand"></table>
+
+
+<br><b>-------------------------------------------------------------------------------------------------------------------<b><br>
+
+
+
+<input type = "button" value = "add question" onclick = "addNewDeck()">
+<br>
+<table id = "decks"></table>
 
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->

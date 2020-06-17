@@ -1,27 +1,180 @@
 
 var fhRef = firebase.database().ref("cards").orderByKey();
 //html elements
-var body = document.getElementsByTagName("body")[0];
-var tbl = document.createElement('table'); // create table element
-var tblBody = document.createElement("tbody"); // create table body element
-var row = document.createElement("tr"); // create row
-var th1 = document.createElement('th'); // create header cell
-var th2 = document.createElement('th');
+var deckTable = document.getElementById("decks");
+var hand = document.getElementById("hand");
 
-th1.appendChild(document.createTextNode("Card")); // add data to header cell
+var decks = [];
 
-row.appendChild(th1); // add header to row
-row.appendChild(th2);
+function addNewDeck(){
+	decks.push(new Deck());
+}
 
-tblBody.appendChild(row); // add row to table body
+/*
+function save(){
+	console.log("saving to database");
+	for(var i = 0; i < decks.length; i++){
+		var cards = decks[i].cards;
+		for(var j = 0; j < cards.length;j++){
+			updateCardData(cards[j]);
+		}
+	}
+}*/
+
+function load(){
+
+}
+
+class Deck {
+
+	
+
+	constructor(){
+
+		var cards = [];
+		
+
+		var deckRow = document.createElement("tr");
+		
+		
+		var deckCell = document.createElement("td");
+		deckCell.className = "card";
+
+		var deckInput = document.createElement("INPUT");
+		deckInput.className="textInput";
+		deckInput.placeholder = "question " + decks.length;
+
+		deckCell.appendChild(deckInput);
+		deckRow.appendChild(deckCell);
+		deckTable.appendChild(deckRow);
 
 
-let options = [];
+		this.text = deckInput.value;
+		this.key = addDeckData(this);
+
+		var buttons = document.createElement("div");
+	
+		var addCardButton = document.createElement("INPUT");
+		addCardButton.type = "button";
+		addCardButton.value = "add";
+
+		addCardButton.onclick = function(){
+			var newCard =  new Card(deckRow);
+			console.log(newCard);
+			console.log(cards);
+			cards.push(newCard);
+			console.log(cards);
+			newCard.text.placeholder = "option " + cards.length ;
+		}
+
+		var deleteButton = document.createElement("INPUT");
+		deleteButton.type = "button";
+		deleteButton.value = "trash";
+		deleteButton.onclick = function(){
+			deckTable.removeChild(deckRow);
+		}
+
+		var drawButton = document.createElement("INPUT");
+		drawButton.type = "button";
+		drawButton.value = "draw";
+		drawButton.onclick = function(){
+			var index = Math.floor(cards.length*Math.random());
+			new DrawnCard(this,cards[index]);
+		}
+
+		
+		buttons.appendChild(deleteButton);
+		buttons.appendChild(addCardButton);
+		buttons.appendChild(drawButton);
+		deckCell.appendChild(buttons);
 
 
+	}
+}
+
+class Card {
+
+	constructor(deck){
+
+		this.deck = deck;
+		
+		var cardInput = document.createElement("INPUT");
+		cardInput.className="textInput";
+		cardInput.type = "text";
+		
+
+		
+		var cardCell = document.createElement("td");
+		cardCell.className = "card";
+		cardCell.appendChild(cardInput);
+		deck.appendChild(cardCell);
+
+		var deleteCard = document.createElement("INPUT");
+		deleteCard.type = "button";
+		deleteCard.value = "trash";
+		cardCell.appendChild(deleteCard);
+
+		this.text = cardInput;
+		this.key = addCardData(this);
+		console.log(this.key);
+		var card = this;
+
+
+		deleteCard.onclick = function(){
+
+			deleteCard.parentNode.remove();
+			deleteCardData(card);
+
+		}
+
+
+
+		cardInput.onkeyup = function(event){
+			event.preventDefault();
+    		if (event.keyCode === 13) {
+        		console.log("enter key pressed");
+        		updateCardData(card);	
+    		}
+		}
+	
+	}
+
+	
+}
+
+class DrawnCard {
+
+	constructor(deck, card){
+		var drawnCard = document.createElement("td");
+		drawnCard.className = "card";
+
+		var text = card.text.value;
+		if(text == ""){
+			text = card.text.placeholder;
+		}
+		drawnCard.appendChild(document.createTextNode(text));
+
+		var discard = document.createElement("INPUT");
+		discard.type = "button";
+		discard.value = "discard";
+		drawnCard.appendChild(discard);
+
+		discard.onclick = function(){
+
+			discard.parentNode.remove();
+		}
+		hand.appendChild(drawnCard);
+	}
+}
+
+
+
+
+/*
 fhRef.once("value").then(function (snapshot) {
  snapshot.forEach(function (childSnapshot) {
  var key=childSnapshot.key;
+
  var childData = childSnapshot.val();
  var data = childSnapshot.val();
  // console.log(data.company);
@@ -70,15 +223,13 @@ tbl.appendChild(tblBody);
 body.appendChild(tbl);
 
 function drawCard(){
-	fhRef.once("value").then(function (snapshot) {
-		if(options.length > 0){
+	if(options.length > 0){
 		var draw = Math.floor(Math.random()*options.length);
 		console.log(draw + " " + options[draw]);
 		document.getElementById("drawn_card").innerHTML = options[draw];
-		}
-		else{
+	}
+	else{
 			document.getElementById("drawn_card").innerHTML = "<br>";
-		}
- 	});
-}
-
+	 }
+ }
+*/
