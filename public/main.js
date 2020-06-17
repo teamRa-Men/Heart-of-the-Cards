@@ -5,7 +5,7 @@ function addDeckData(deck){
 	var deckText = deck.text.value;
 
 	var key = firebase.database().ref("/user").push({
-		text :deckText
+		
 		//user_key:;
 		//deck_key:;
 	}).key;
