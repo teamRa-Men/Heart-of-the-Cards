@@ -1,170 +1,276 @@
 
-var fhRef = firebase.database().ref("cards").orderByKey();
+var fhRef = firebase.database().ref("user").orderByKey();
+readUser(fhRef);
+
+var decks = [];
+
+function readUser(userRef){
+	userRef.once("value").then(function (snapshot) {
+ 	snapshot.forEach(function (childSnapshot) {
+ 		var key=childSnapshot.key;
+		var data = childSnapshot.val();
+		var deckRef = firebase.database().ref("user/"+key).orderByKey();
+		readDeck(deckRef);
+
+		})
+	});
+}
+
+function readDeck(deckRef){
+    deckRef.once("value").then(function (snapshot) {
+    	var key = snapshot.key;
+		var deckText = "";
+		var cardKeys = [];
+
+ 		snapshot.forEach(function (childSnapshot) {
+			var childkey=childSnapshot.key;
+			var data = childSnapshot.val();
+
+			if(childkey == "decktext"){
+				deckText = data;
+			
+			}
+			else{
+				cardKeys.push(childkey);
+			}
+		});
+		var d = new Deck(key,deckText,cardKeys);
+		decks.push(d);
+
+	});	
+}
+
+function readCard(card, deckKey, key){
+	var cardRef = firebase.database().ref("user/"+deckKey+"/"+key).orderByKey();
+	cardRef.once("value").then(function (snapshot) {
+		snapshot.forEach(function (childSnapshot) {
+
+ 			var childkey=childSnapshot.key;
+ 			var key = snapshot.key;
+
+			var data = childSnapshot.val();
+
+
+			if(childkey == "cardtext"){
+				card.text.value = data;
+			}
+			if(childkey == "drawn"){
+				card.drawn = data;
+				if(data == "true"){
+					new DrawnCard(card.deck, card);
+					card.cardObject.className = "cardDrawn";
+				}
+				else{
+					card.deck.undrawn.push(card);
+				}
+			}
+			
+		})
+	});
+}
+
 //html elements
 var deckTable = document.getElementById("decks");
 var hand = document.getElementById("hand");
 
-var decks = [];
 
 function addNewDeck(){
 	decks.push(new Deck());
 }
 
-/*
-function save(){
-	console.log("saving to database");
-	for(var i = 0; i < decks.length; i++){
-		var cards = decks[i].cards;
-		for(var j = 0; j < cards.length;j++){
-			updateCardData(cards[j]);
-		}
-	}
-}*/
-
-function load(){
-
-}
 
 class Deck {
+	constructor(key,textValue,cardKeys){
 
-	
-
-	constructor(){
-
-		var cards = [];
-		
-
-		var deckRow = document.createElement("tr");
-		
-		
-		var deckCell = document.createElement("td");
-		deckCell.className = "card";
+		var deckRow = document.createElement("tr");		
+		var deckObject = document.createElement("td");
+		deckObject.className = "card";
 
 		var deckInput = document.createElement("INPUT");
 		deckInput.className="textInput";
 		deckInput.placeholder = "question " + decks.length;
 
-		deckInput.onkeyup = function(event){
-			event.preventDefault();
-    		if (event.keyCode === 13) {
-        		console.log("enter key pressed");
-        		updateDeckData(deck);	
-    		}
-		}
-
-
-		deckCell.appendChild(deckInput);
-		deckRow.appendChild(deckCell);
-		deckTable.appendChild(deckRow);
-
-		var deck = this;
-		this.deckRow = deckRow;
-		this.text = deckInput;
-		this.key = addDeckData(this);
-
-
 		var buttons = document.createElement("div");
-	
 		var addCardButton = document.createElement("INPUT");
 		addCardButton.type = "button";
 		addCardButton.value = "add";
 
-		addCardButton.onclick = function(){
-			var newCard =  new Card(deck);
-			
-			cards.push(newCard);
-			console.log(cards);
-			newCard.text.placeholder = "option " + cards.length ;
-		}
-
 		var deleteButton = document.createElement("INPUT");
 		deleteButton.type = "button";
-		deleteButton.value = "trash";
-		deleteButton.onclick = function(){
-			deckTable.removeChild(deckRow);
-			deleteDeckData(deck);
-		}
-
+		deleteButton.value = "remove";
+		
 		var drawButton = document.createElement("INPUT");
 		drawButton.type = "button";
 		drawButton.value = "draw";
-		drawButton.onclick = function(){
-			var index = Math.floor(cards.length*Math.random());
-			new DrawnCard(this,cards[index]);
-		}
 
-		
 		buttons.appendChild(deleteButton);
 		buttons.appendChild(addCardButton);
 		buttons.appendChild(drawButton);
-		deckCell.appendChild(buttons);
+		deckObject.appendChild(buttons);
+
+		deckObject.appendChild(deckInput);
+		deckRow.appendChild(deckObject);
+		deckTable.appendChild(deckRow);
+
+		var cards = [];
+		var undrawn = [];
+		this.undrawn = undrawn;
+		this.cards = cards;
+		var deck = this;
+		this.deckRow = deckRow;
+		this.text = deckInput;
+		
+		this.key = key;
+		if(!key){
+			this.key = addDeckData(this);
+		}
+		else if(cardKeys){
+			this.text.value = textValue;
+			for(var i = 0; i < cardKeys.length; i++){
+				var oldCard =  new Card(deck,cardKeys[i]);
+				cards.push(oldCard);
+			}
+		}
 
 
+
+		deckInput.onkeyup = function(event){
+			event.preventDefault();
+    		if (event.keyCode === 13) {
+        		updateDeckData(deck);	
+    		}
+		}
+
+		addCardButton.onclick = function(){
+			var newCard =  new Card(deck);
+			cards.push(newCard);
+			undrawn.push(newCard);
+			newCard.text.placeholder = "option " + cards.length ;
+		}
+
+		deleteButton.onclick = function(){
+			deckTable.removeChild(deckRow);
+			deleteDeckData(deck);
+
+		}
+		
+		drawButton.onclick = function(){
+			if(undrawn.length > 0){
+				var index = Math.floor(undrawn.length*Math.random());
+				undrawn[index].drawn = "true";
+				updateCardData(undrawn[index]);
+				undrawn[index].undrawnCard = new DrawnCard(this,undrawn[index]);
+				undrawn[index].cardObject.className = "cardDrawn";
+				undrawn.splice(index,1);
+			}
+			else{
+				console.log("all drawn");
+			}
+		}	
 	}
 }
 
+
+
 class Card {
 
-	constructor(deck){
+	constructor(deck, key){
 
-		this.deck = deck;
-		console.log(deck.key +"  from card");
-		
 		var cardInput = document.createElement("INPUT");
 		cardInput.className="textInput";
 		cardInput.type = "text";
-		
+		cardInput.placeholder = "your option"
 
+		var cardObject = document.createElement("td");
+		cardObject.className = "card";
 		
-		var cardCell = document.createElement("td");
-		cardCell.className = "card";
-		cardCell.appendChild(cardInput);
-		deck.deckRow.appendChild(cardCell);
 
 		var deleteCard = document.createElement("INPUT");
 		deleteCard.type = "button";
-		deleteCard.value = "trash";
-		cardCell.appendChild(deleteCard);
+		deleteCard.value = "remove";	
 
+		var imageUpload = document.createElement("INPUT");
+		imageUpload.type = "file";
+		imageUpload.id = "image" + key;
+		imageUpload.style.width="100px";
+	
+
+		var upload = document.createElement("INPUT");
+		upload.type = "button";
+		upload.value = "upload";	
+
+		var imageObject = document.createElement("img");
+		imageObject.style.width="100px";
+
+		cardObject.appendChild(cardInput);
+		deck.deckRow.appendChild(cardObject);
+		cardObject.appendChild(imageObject);
+		cardObject.appendChild(imageUpload);
+		cardObject.appendChild(upload);
+		cardObject.appendChild(deleteCard);
+
+
+		this.cardObject = cardObject;
+
+		this.deck = deck;
 		this.text = cardInput;
-		this.key = addCardData(this);
-		console.log(this.key);
+		this.key = key;
+		this.drawn = "false";
+		this.image = imageObject;
+		if(!key){
+			this.key = addCardData(this);
+		}
+		else{
+			readCard(this,deck.key, key, imageObject);
+		}
 		var card = this;
 
 
 		deleteCard.onclick = function(){
-
 			deleteCard.parentNode.remove();
 			deleteCardData(card);
+			var index = deck.cards.indexOf(this);
+			var undrawnIndex = deck.undrawn.indexOf(this);
 
+			deck.cards.splice(index,1);
+			deck.undrawn.splice(undrawnIndex,1);
 		}
-
-
 
 		cardInput.onkeyup = function(event){
 			event.preventDefault();
     		if (event.keyCode === 13) {
-        		console.log("enter key pressed");
         		updateCardData(card);	
     		}
+		}	
+		upload.onclick = function(event){
+			uploadCardImage(imageUpload.files[0],key, imageObject );
 		}
-	
-	}
-
-	
+	}	
 }
 
 class DrawnCard {
 
 	constructor(deck, card){
+		this.card = card;
+
 		var drawnCard = document.createElement("td");
+		
 		drawnCard.className = "card";
 
 		var text = card.text.value;
 		if(text == ""){
 			text = card.text.placeholder;
 		}
+
+		var image = card.image;
+
 		drawnCard.appendChild(document.createTextNode(text));
+		var showImage =document.createElement("img")
+		showImage.src = image.src;
+		showImage.style.width = "100px";
+		drawnCard.appendChild(showImage);
+
+
 
 		var discard = document.createElement("INPUT");
 		discard.type = "button";
@@ -172,76 +278,21 @@ class DrawnCard {
 		drawnCard.appendChild(discard);
 
 		discard.onclick = function(){
-
+			var index = card.deck.cards.indexOf(card);
+			card.drawn = "false";
+			card.cardObject.className = "card";
+			if(index >-1){			
+				card.deck.undrawn.push(card);
+				updateCardData(card);
+			}
 			discard.parentNode.remove();
+			
+
 		}
 		hand.appendChild(drawnCard);
 	}
+
 }
 
 
 
-
-/*
-fhRef.once("value").then(function (snapshot) {
- snapshot.forEach(function (childSnapshot) {
- var key=childSnapshot.key;
-
- var childData = childSnapshot.val();
- var data = childSnapshot.val();
- // console.log(data.company);
- var row = document.createElement("tr");
- var td1 = document.createElement('td');
- var td2 = document.createElement('td');
-
- options.push(data.text);
- td1.appendChild(document.createTextNode(data.text));
-
- var removeBtn = document.createElement("button");
- removeBtn.id = key+"";
- removeBtn.innerHTML = 'remove ' + key;
- 
- removeBtn.onclick = function(){
- 	console.log(removeBtn.id);
- 	snapshot.forEach(function (child) {
- 		var childKey =child.key;
- 		if(key === childKey){
- 			child.getRef().remove();
- 			console.log(childKey + "remove");
-
- 			const i = options.indexOf(child.val().text);
-			if (i > -1) {
-  				options.splice(i, 1);
-			}
- 		}
- 	});
-
-
- 	removeBtn.remove();
- 	td1.remove();
- 	row.remove();
-	
- }
-
- td2.appendChild(removeBtn);
-
- row.appendChild(td1);
- row.appendChild(td2);
-
- tblBody.appendChild(row);
- });
-});
-tbl.appendChild(tblBody);
-body.appendChild(tbl);
-
-function drawCard(){
-	if(options.length > 0){
-		var draw = Math.floor(Math.random()*options.length);
-		console.log(draw + " " + options[draw]);
-		document.getElementById("drawn_card").innerHTML = options[draw];
-	}
-	else{
-			document.getElementById("drawn_card").innerHTML = "<br>";
-	 }
- }
-*/

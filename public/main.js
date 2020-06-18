@@ -31,10 +31,11 @@ function deleteDeckData(deck){
 function addCardData(card){
 	console.log("card adding to database");
 	var cardText = card.text.value;
+	var cardDrawn = card.drawn;
+
 	var key = firebase.database().ref("/user"+"/"+card.deck.key).push({
-		cardtext :cardText
-		//user_key:;
-		//deck_key:;
+		cardtext :cardText,
+		drawn: cardDrawn
 	}).key;
 	return key;
 }
@@ -42,17 +43,27 @@ function addCardData(card){
 function updateCardData(card){
 	console.log("updating card to database");
 	var cardText = card.text.value;
+	var cardDrawn = card.drawn;
 
-	firebase.database().ref("/user"+"/"+card.deck.key+"/"+card.key).set({
-		cardtext :cardText
-		//user_key:;
-		//deck_key:;
+	firebase.database().ref("/user"+"/"+card.deck.key+"/"+card.key).update({
+		cardtext :cardText,
+		drawn: cardDrawn
 	});
 }
 
 function deleteCardData(card){
 	firebase.database().ref("/user"+"/"+card.deck.key+"/"+card.key).remove();
 }
+
+function uploadCardImage(file, key, imageObject){
+	ref = firebase.storage().ref("/"+key);
+	var name = new Date + '_' + file.name;
+	var task = ref.child(name).put(file)
+	.then(snapshot => snapshot.ref.getDownloadURL())
+	.then(url => imageObject.src = url)
+}
+
+
 
 
 

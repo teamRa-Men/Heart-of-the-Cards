@@ -6,6 +6,14 @@
 	background-color: white;
 }
 
+.cardDrawn{
+	width: 120px;
+	height: 180px;
+	border-radius: 10px;
+	margin: 20px;
+	background-color: rgb(200,200,200);
+}
+
 .textInput{
 	width: 120px;
 	display: block;
