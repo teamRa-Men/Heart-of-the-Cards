@@ -1,23 +1,87 @@
+body{
+	overflow: hidden;
+}
+
+.button:hover{
+	
+    color:red;
+}
+
+.button{
+	float:center;
+	width: 120px;
+	border:none;
+	background: none;
+	border-radius: 5px;
+    margin: 10;
+ 
+    color: black;
+}
+
+.deleteButton{
+	border:none;
+	float: right;
+	padding-right : 20px;
+	background:none;
+}
+
+.deleteButton:hover{
+	color:red;
+}
+
+.cardImage{
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+	object-fit: cover;
+	background-color: black;
+	background-image: url(./img/empty.png);
+}
+
+
 .card{
 	width: 120px;
 	height: 180px;
 	border-radius: 10px;
-	margin: 20px;
-	background-color: white;
+	background-color: black;
+	margin-top:30px;
 }
 
+.cell{
+	width: 140px;
+	height: 300px;
+}
+
+.deck{
+	width: 120px;
+	height: 180px;
+	background-image: url(./img/Cb1yelor.png);
+	background-size: 100% 100%;
+	border-radius: 10px;
+}
 .cardDrawn{
 	width: 120px;
 	height: 180px;
 	border-radius: 10px;
-	margin: 20px;
+	
 	background-color: rgb(200,200,200);
 }
 
 .textInput{
-	width: 120px;
+	width: 100px;
 	display: block;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	background: none;
+	border-color:white;
+	border-width: 1px;
+    padding-top: 20px;
+    margin: 10px;
+    width: 100px;
+    color: white;
+    text-align: center;
 }
 .background{
-	background-color: gray;
+	background-color: rgb(250,250,250);
 }

@@ -72,6 +72,7 @@ function readCard(card, deckKey, key){
 //html elements
 var deckTable = document.getElementById("decks");
 var hand = document.getElementById("hand");
+var deckList = document.getElementById("deckList");
 
 
 function addNewDeck(){
@@ -82,35 +83,54 @@ function addNewDeck(){
 class Deck {
 	constructor(key,textValue,cardKeys){
 
-		var deckRow = document.createElement("tr");		
-		var deckObject = document.createElement("td");
-		deckObject.className = "card";
+		var deckRow = document.createElement("tr");	
+		deckRow.style.display = "none";
+		var deckCell = document.createElement("td");
+		deckCell.className = "cell";
+		var deckObject = document.createElement("div");
+		deckObject.className = "deck";
+		
 
 		var deckInput = document.createElement("INPUT");
 		deckInput.className="textInput";
 		deckInput.placeholder = "question " + decks.length;
 
-		var buttons = document.createElement("div");
+		
 		var addCardButton = document.createElement("INPUT");
 		addCardButton.type = "button";
 		addCardButton.value = "add";
+		addCardButton.className = "button";;
 
 		var deleteButton = document.createElement("INPUT");
 		deleteButton.type = "button";
-		deleteButton.value = "remove";
+		deleteButton.value = "x";
+		deleteButton.className = "deleteButton";
 		
 		var drawButton = document.createElement("INPUT");
 		drawButton.type = "button";
 		drawButton.value = "draw";
+		drawButton.className = "button";
 
-		buttons.appendChild(deleteButton);
-		buttons.appendChild(addCardButton);
-		buttons.appendChild(drawButton);
-		deckObject.appendChild(buttons);
+		var deckListCell = document.createElement("div");
+		
+		var deckListText = document.createElement("INPUT");
+		deckListText.type = "button";
+		deckListText.value = "unamed deck"
+		deckListText.className = "button";
+
+		deckListCell.appendChild(deckListText);
+		deckListCell.appendChild(deleteButton);
+		deckList.appendChild(deckListCell);
 
 		deckObject.appendChild(deckInput);
-		deckRow.appendChild(deckObject);
+		deckCell.appendChild(deckObject);
+		deckRow.appendChild(deckCell);
 		deckTable.appendChild(deckRow);
+
+		
+		deckCell.appendChild(addCardButton);
+		deckCell.appendChild(drawButton);
+		
 
 		var cards = [];
 		var undrawn = [];
@@ -119,6 +139,7 @@ class Deck {
 		var deck = this;
 		this.deckRow = deckRow;
 		this.text = deckInput;
+		this.deckRow = deckRow;
 		
 		this.key = key;
 		if(!key){
@@ -137,19 +158,22 @@ class Deck {
 		deckInput.onkeyup = function(event){
 			event.preventDefault();
     		if (event.keyCode === 13) {
-        		updateDeckData(deck);	
-    		}
+        		updateDeckData(deck);
+        		
+        		deckListText.value = "" + deckInput.value;
+    		}	
 		}
 
 		addCardButton.onclick = function(){
 			var newCard =  new Card(deck);
 			cards.push(newCard);
 			undrawn.push(newCard);
-			newCard.text.placeholder = "option " + cards.length ;
+			newCard.text.placeholder = "unamed card " + decks.length;
 		}
 
 		deleteButton.onclick = function(){
 			deckTable.removeChild(deckRow);
+			deckList.removeChild(deckListCell);
 			deleteDeckData(deck);
 
 		}
@@ -167,6 +191,13 @@ class Deck {
 				console.log("all drawn");
 			}
 		}	
+
+		deckListText.onclick = function(){
+			deckRow.style.display = "block";
+			for(var i = 0 ; i < decks.length; i++){
+				decks[i].deckRow.style.display = "none";
+			}
+		}
 	}
 }
 
@@ -179,35 +210,46 @@ class Card {
 		var cardInput = document.createElement("INPUT");
 		cardInput.className="textInput";
 		cardInput.type = "text";
-		cardInput.placeholder = "your option"
+		cardInput.placeholder = "unamed card " + deck.cards.length;
 
-		var cardObject = document.createElement("td");
+		var cardCell = document.createElement("td");
+		cardCell.className = "cell";
+
+		var cardObject = document.createElement("div")
 		cardObject.className = "card";
 		
 
 		var deleteCard = document.createElement("INPUT");
 		deleteCard.type = "button";
 		deleteCard.value = "remove";	
+		deleteCard.className = "button";
 
 		var imageUpload = document.createElement("INPUT");
 		imageUpload.type = "file";
 		imageUpload.id = "image" + key;
-		imageUpload.style.width="100px";
+		imageUpload.style.width="90px";
+
+
 	
 
 		var upload = document.createElement("INPUT");
 		upload.type = "button";
 		upload.value = "upload";	
+		upload.className = "button";
 
 		var imageObject = document.createElement("img");
-		imageObject.style.width="100px";
+		imageObject.className = "cardImage";
 
 		cardObject.appendChild(cardInput);
-		deck.deckRow.appendChild(cardObject);
 		cardObject.appendChild(imageObject);
-		cardObject.appendChild(imageUpload);
-		cardObject.appendChild(upload);
-		cardObject.appendChild(deleteCard);
+
+		cardCell.appendChild(cardObject);
+		cardCell.appendChild(imageUpload);
+		cardCell.appendChild(upload);
+		cardCell.appendChild(deleteCard);
+		deck.deckRow.appendChild(cardCell);
+		
+		
 
 
 		this.cardObject = cardObject;
@@ -253,7 +295,8 @@ class DrawnCard {
 	constructor(deck, card){
 		this.card = card;
 
-		var drawnCard = document.createElement("td");
+		var drawnCardCell = document.createElement("td");
+		var drawnCard = document.createElement("div");
 		
 		drawnCard.className = "card";
 
@@ -264,18 +307,28 @@ class DrawnCard {
 
 		var image = card.image;
 
-		drawnCard.appendChild(document.createTextNode(text));
+		
+		var drawnCardText = document.createTextNode(text);
+		var textContainer = document.createElement("span");
+		textContainer.appendChild(drawnCardText);
+		textContainer.className = "textInput";
+		drawnCard.appendChild(textContainer);
+
 		var showImage =document.createElement("img")
 		showImage.src = image.src;
-		showImage.style.width = "100px";
+		showImage.className = "cardImage";
 		drawnCard.appendChild(showImage);
 
 
+		drawnCardCell.appendChild(drawnCard);
 
 		var discard = document.createElement("INPUT");
 		discard.type = "button";
 		discard.value = "discard";
-		drawnCard.appendChild(discard);
+		discard.className="button";
+		drawnCardCell.appendChild(discard);
+
+		hand.appendChild(drawnCardCell);
 
 		discard.onclick = function(){
 			var index = card.deck.cards.indexOf(card);
@@ -289,7 +342,7 @@ class DrawnCard {
 			
 
 		}
-		hand.appendChild(drawnCard);
+		
 	}
 
 }

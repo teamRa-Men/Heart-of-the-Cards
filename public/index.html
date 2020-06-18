@@ -3,10 +3,10 @@
 <head>
  <meta charset="UTF-8">
  <link rel="stylesheet" href = "hotc.css">
- <title>Heart of the Cards Database Test</title>
+ <title>Heart of the Cards</title>
 </head>
 <body class = "background">
-<h1> Heart of the Cards Database Test</h1>
+<h1> Heart of the Cards </h1>
 <!--
 <form onsubmit="adddata()">
  
@@ -20,16 +20,21 @@
 <p id = "drawn_card"><br></p>-->
 
 
-<table id = "hand"></table>
+<table id = "hand" style="height: 200px; display:inline_block;float:left"></table>
+
+<div id = "deckList" style="height: 200px;width:200px; display:inline_block;float:right; overflow-y:scroll">
+    <input type = "button" value = "add question" onclick = "addNewDeck()">
+</div>
 
 
-<br><b>-------------------------------------------------------------------------------------------------------------------<b><br>
 
 
 
-<input type = "button" value = "add question" onclick = "addNewDeck()">
+
 <br>
-<table id = "decks"></table>
+<div id = "editDeck" style="width:100%; overflow-x:scroll">
+  <table id = "decks"></table>
+</div>
 
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
