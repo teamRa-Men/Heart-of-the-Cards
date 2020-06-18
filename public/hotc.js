@@ -85,6 +85,7 @@ class Deck {
 
 		var deckRow = document.createElement("tr");	
 		deckRow.style.display = "none";
+
 		var deckCell = document.createElement("td");
 		deckCell.className = "cell";
 		var deckObject = document.createElement("div");
@@ -193,10 +194,12 @@ class Deck {
 		}	
 
 		deckListText.onclick = function(){
-			deckRow.style.display = "block";
 			for(var i = 0 ; i < decks.length; i++){
 				decks[i].deckRow.style.display = "none";
 			}
+			deckRow.style.display = "block";
+
+			
 		}
 	}
 }
