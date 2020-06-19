@@ -224,8 +224,8 @@ class Card {
 
 		var deleteCard = document.createElement("INPUT");
 		deleteCard.type = "button";
-		deleteCard.value = "remove";	
-		deleteCard.className = "button";
+		deleteCard.value = "x";	
+		deleteCard.className = "deleteButton";
 
 		var imageUpload = document.createElement("INPUT");
 		imageUpload.type = "file";
@@ -246,10 +246,12 @@ class Card {
 		cardObject.appendChild(cardInput);
 		cardObject.appendChild(imageObject);
 
+		cardCell.appendChild(deleteCard);
+
 		cardCell.appendChild(cardObject);
 		cardCell.appendChild(imageUpload);
 		cardCell.appendChild(upload);
-		cardCell.appendChild(deleteCard);
+		
 		deck.deckRow.appendChild(cardCell);
 		
 		
@@ -289,6 +291,7 @@ class Card {
 		}	
 		upload.onclick = function(event){
 			uploadCardImage(imageUpload.files[0],key, imageObject );
+			imageObject.style.display="block";
 		}
 	}	
 }
