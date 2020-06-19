@@ -1,3 +1,84 @@
+
+
+<!DOCTYPE html>
+ <html>
+ <head>
+  <title>Heart of the Cards Login Test</title>
+ </head>
+ <body>
+  <div id = "cards-login">
+  <h3> Login </h3>
+  <form id = "login-form">
+  <label>Email </label>&nbsp;&nbsp;<input type="text" placeholder="Email" name="eamil" id="login-email"> <br> <br>
+  <label>Password </label>&nbsp;&nbsp;<input type="text" placeholder="Password" name="password" id="login-password"> <br> <br>
+  <button type="submit">Login</button>
+  <button type="button">Register</button><br><br><br>
+  </form>
+  </div>
+
+  <div id = "cards-signup">
+  <h3> Register </h3>
+  <form id = "signup-form">
+  <label>Email </label>&nbsp;&nbsp;<input type="text" placeholder="Email" name="eamil" id="signup-email"> <br> <br>
+  <label>Password </label>&nbsp;&nbsp;<input type="text" placeholder="Password" name="password" id="signup-password"> <br> <br>
+  <button type="submit">Register</button><br><br><br><br><br>
+  </form>
+  </div>
+
+  <div id="logout">
+    <button type="click">Logout</button>
+  </div>
+
+
+
+
+
+ </body>
+
+<script src="scripts/auth.js"></script> 
+<script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-firestore.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBab7oIwt3DZsrQtOExybe_aCPnictYpr4",
+    authDomain: "heart-of-the-cards-631a2.firebaseapp.com",
+    databaseURL: "https://heart-of-the-cards-631a2.firebaseio.com",
+    projectId: "heart-of-the-cards-631a2",
+    storageBucket: "heart-of-the-cards-631a2.appspot.com",
+    messagingSenderId: "614547051244",
+    appId: "1:614547051244:web:32077725a2718b3aba8bc9",
+    measurementId: "G-YZXTV7F46S"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+ 
+
+</script>
+
+ </html>
+
+
+
+
+
+
+
+
+
+
+ <!--
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +88,7 @@
 </head>
 <body class = "background">
 <h1> Heart of the Cards </h1>
-<!--
+
 <form onsubmit="adddata()">
  
  <input type="text" id="card_text" placeholder="new option"><br>
@@ -17,12 +98,12 @@
 </form><br>
 
 <input type = "button" value = "draw random card" onclick = "drawCard()"><br>
-<p id = "drawn_card"><br></p>-->
+<p id = "drawn_card"><br></p>
 
 
-<table id = "hand" style="height: 200px; display:inline_block;float:left"></table>
+<table id = "hand" style="height: 250px; display:inline_block;float:left"></table>
 
-<div id = "deckList" style="height: 200px;width:200px; display:inline_block;float:right; overflow-y:scroll">
+<div id = "deckList" style="height: 250px;width:200px; display:inline_block;float:right; overflow-y:scroll">
     <input type = "button" value = "add question" onclick = "addNewDeck()">
 </div>
 
@@ -37,11 +118,9 @@
 </div>
 
 
-<!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+ 
 <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-storage.js"></script>
@@ -67,4 +146,6 @@
 <script src = "main.js"></script>
 </body>
 </html>
+
+<!-- -->
 
