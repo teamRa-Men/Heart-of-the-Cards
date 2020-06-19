@@ -1,11 +1,13 @@
-
-
 <!DOCTYPE html>
- <html>
- <head>
-  <title>Heart of the Cards Login Test</title>
- </head>
- <body>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <link rel="stylesheet" href = "hotc.css">
+ <title>Heart of the Cards</title>
+</head>
+<body class = "background">
+<h1> Heart of the Cards </h1>
+  <body>
   <div id = "cards-login">
   <h3> Login </h3>
   <form id = "login-form">
@@ -25,20 +27,49 @@
   </form>
   </div>
 
+
+
+<br><br><br><br><br><br><br><br><br><br>
+
   <div id="logout">
-    <button type="click">Logout</button>
+    <button type="click" style="float:righ10; top:0">Logout</button>
   </div>
 
+<form onsubmit="adddata()">
+ 
+
+
+ 
+
+</form><br>
+
+<p id = "drawn_card"><br></p>
+
+<center style="height: 200px;display:inline-block;">
+
+<table id = "hand" style="height: 200px; float:left;"></table>
+</center>
+
+
+<div id = "deckList" style="height: 200px;width:200px;float:right; overflow-y:scroll;">
+    <input type = "button" value = "add question" onclick = "addNewDeck()">
+</div>
+
+
+<div id = "editDeck" style="width:100%; height:300px;display: block;">
+  <table id = "decks"></table>
+</div>
 
 
 
 
- </body>
 
 <script src="scripts/auth.js"></script> 
 <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-storage.js"></script>
 
 
 <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-analytics.js"></script>
@@ -66,86 +97,15 @@
 
 </script>
 
- </html>
-
-
-
-
-
-
-
-
-
-
- <!--
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <meta charset="UTF-8">
- <link rel="stylesheet" href = "hotc.css">
- <title>Heart of the Cards</title>
-</head>
-<body class = "background">
-<h1> Heart of the Cards </h1>
-
-<form onsubmit="adddata()">
- 
- <input type="text" id="card_text" placeholder="new option"><br>
-
- 
- <input type="submit" value="add"><br>
-</form><br>
-
-<input type = "button" value = "draw random card" onclick = "drawCard()"><br>
-<p id = "drawn_card"><br></p>
-
-
-<table id = "hand" style="height: 250px; display:inline_block;float:left"></table>
-
-<div id = "deckList" style="height: 250px;width:200px; display:inline_block;float:right; overflow-y:scroll">
-    <input type = "button" value = "add question" onclick = "addNewDeck()">
-</div>
-
-
-
-
-
-
-<br>
-<div id = "editDeck" style="width:100%; overflow-x:scroll">
-  <table id = "decks"></table>
-</div>
-
-
-<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
-
- 
-<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-storage.js"></script>
-
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyBab7oIwt3DZsrQtOExybe_aCPnictYpr4",
-    authDomain: "heart-of-the-cards-631a2.firebaseapp.com",
-    databaseURL: "https://heart-of-the-cards-631a2.firebaseio.com",
-    projectId: "heart-of-the-cards-631a2",
-    storageBucket: "heart-of-the-cards-631a2.appspot.com",
-    messagingSenderId: "614547051244",
-    appId: "1:614547051244:web:2dc4125fff36665eba8bc9",
-    measurementId: "G-C9H1V8YSH5"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
-
 <script src = "hotc.js"></script>
 <script src = "main.js"></script>
+
+
+
 </body>
 </html>
+
+
 
 <!-- -->
 

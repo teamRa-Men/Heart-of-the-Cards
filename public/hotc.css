@@ -1,8 +1,10 @@
 body{
-	overflow: hidden;
+
 	background-image: url(./img/table_background.png);
-	background-size: 100%,100%;
-	padding: 40px;
+	background-size: 100%,200%;
+	padding-left: 40px;
+	padding-top: 40px;
+
 }
 
 .button:hover{

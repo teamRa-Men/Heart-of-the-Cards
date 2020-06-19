@@ -194,7 +194,9 @@ class Deck {
 		}	
 
 		deckListText.onclick = function(){
-			
+			for(var i = 0; i < decks.length; i++){
+				decks[i].deckRow.style.display = "none";
+			}
 			deckRow.style.display = "block";
 
 			
