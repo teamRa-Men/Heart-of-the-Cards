@@ -1,15 +1,38 @@
 
-var fhRef = firebase.database().ref("user").orderByKey();
-readUser(fhRef);
-
+var user = "";
 var decks = [];
+
+//html elements
+var deckTable = document.getElementById("decks");
+var hand = document.getElementById("hand");
+var deckList = document.getElementById("deckList");
+
+var cardTable = document.getElementById("card_table");
+cardTable.style.display = "none";
+login_registration.style.display = "block";
+
+function loggedOut(){
+	user = "";
+	login_registration.style.display = "block";
+	cardTable.style.display = "none";
+}
+
+function loggedIn(userId){
+	login_registration.style.display = "none";
+	user = userId;
+	userRef = firebase.database().ref("/"+userId);
+
+	readUser(userRef);
+	cardTable.style.display = "block";
+
+}
 
 function readUser(userRef){
 	userRef.once("value").then(function (snapshot) {
  	snapshot.forEach(function (childSnapshot) {
  		var key=childSnapshot.key;
 		var data = childSnapshot.val();
-		var deckRef = firebase.database().ref("user/"+key).orderByKey();
+		var deckRef = firebase.database().ref(user+"/"+key).orderByKey();
 		readDeck(deckRef);
 
 		})
@@ -21,6 +44,8 @@ function readDeck(deckRef){
     	var key = snapshot.key;
 		var deckText = "";
 		var cardKeys = [];
+
+		
 
  		snapshot.forEach(function (childSnapshot) {
 			var childkey=childSnapshot.key;
@@ -34,14 +59,27 @@ function readDeck(deckRef){
 				cardKeys.push(childkey);
 			}
 		});
+
 		var d = new Deck(key,deckText,cardKeys);
+		if(decks.length>0){
+			d.deckRow.style.display = "none";
+		}
+		else{
+			d.deckRow.style.display = "block";
+		}
+		
 		decks.push(d);
+
+		
 
 	});	
 }
 
 function readCard(card, deckKey, key){
 	var cardRef = firebase.database().ref("user/"+deckKey+"/"+key).orderByKey();
+	
+	downloadCardImage(key, card);
+
 	cardRef.once("value").then(function (snapshot) {
 		snapshot.forEach(function (childSnapshot) {
 
@@ -49,30 +87,31 @@ function readCard(card, deckKey, key){
  			var key = snapshot.key;
 
 			var data = childSnapshot.val();
-
+			
 
 			if(childkey == "cardtext"){
 				card.text.value = data;
 			}
+			/*
 			if(childkey == "drawn"){
-				card.drawn = data;
-				if(data == "true"){
+				card.drawn = data;		
+
+				if(card.drawn == "true"){
 					new DrawnCard(card.deck, card);
+					card.image.style.opacity = 0.2;
 					card.cardObject.className = "cardDrawn";
 				}
-				else{
-					card.deck.undrawn.push(card);
-				}
-			}
+			}*/
 			
 		})
 	});
+
+	
+
+	
 }
 
-//html elements
-var deckTable = document.getElementById("decks");
-var hand = document.getElementById("hand");
-var deckList = document.getElementById("deckList");
+
 
 
 function addNewDeck(){
@@ -80,11 +119,13 @@ function addNewDeck(){
 }
 
 
+
 class Deck {
 	constructor(key,textValue,cardKeys){
 
 		var deckRow = document.createElement("tr");	
-		deckRow.style.display = "none";
+		
+		this.deckRow = deckRow;
 
 		var deckCell = document.createElement("td");
 		deckCell.className = "cell";
@@ -134,17 +175,19 @@ class Deck {
 		
 
 		var cards = [];
-		var undrawn = [];
+		var undrawn = cards;
 		this.undrawn = undrawn;
+		
 		this.cards = cards;
 		var deck = this;
 		this.deckRow = deckRow;
 		this.text = deckInput;
 		this.deckRow = deckRow;
 		
+		
 		this.key = key;
 		if(!key){
-			this.key = addDeckData(this);
+			this.key = addDeckData(this,user);
 		}
 		else if(cardKeys){
 			this.text.value = textValue;
@@ -156,10 +199,11 @@ class Deck {
 
 
 
+
 		deckInput.onkeyup = function(event){
 			event.preventDefault();
     		if (event.keyCode === 13) {
-        		updateDeckData(deck);
+        		updateDeckData(deck,user);
         		
         		deckListText.value = "" + deckInput.value;
     		}	
@@ -175,7 +219,7 @@ class Deck {
 		deleteButton.onclick = function(){
 			deckTable.removeChild(deckRow);
 			deckList.removeChild(deckListCell);
-			deleteDeckData(deck);
+			deleteDeckData(deck,user);
 
 		}
 		
@@ -183,8 +227,9 @@ class Deck {
 			if(undrawn.length > 0){
 				var index = Math.floor(undrawn.length*Math.random());
 				undrawn[index].drawn = "true";
-				updateCardData(undrawn[index]);
+				
 				undrawn[index].undrawnCard = new DrawnCard(this,undrawn[index]);
+				undrawn[index].image.style.opacity = 0.2;
 				undrawn[index].cardObject.className = "cardDrawn";
 				undrawn.splice(index,1);
 			}
@@ -199,6 +244,7 @@ class Deck {
 			}
 			deckRow.style.display = "block";
 
+			
 			
 		}
 	}
@@ -264,12 +310,16 @@ class Card {
 		this.key = key;
 		this.drawn = "false";
 		this.image = imageObject;
+
 		if(!key){
-			this.key = addCardData(this);
+			this.key = addCardData(this,user);
 		}
 		else{
-			readCard(this,deck.key, key, imageObject);
+			readCard(this,deck.key, key);
 		}
+		console.log(this.drawn + " sfdssdfasdfsdfsdf");
+
+
 		var card = this;
 
 
@@ -286,14 +336,16 @@ class Card {
 		cardInput.onkeyup = function(event){
 			event.preventDefault();
     		if (event.keyCode === 13) {
-        		updateCardData(card);	
+        		updateCardData(card,user);	
     		}
 		}	
 		upload.onclick = function(event){
 			uploadCardImage(imageUpload.files[0],key, imageObject );
 			imageObject.style.display="block";
 		}
-	}	
+
+	}
+	
 }
 
 class DrawnCard {
@@ -311,7 +363,6 @@ class DrawnCard {
 			text = card.text.placeholder;
 		}
 
-		var image = card.image;
 
 		
 		var drawnCardText = document.createTextNode(text);
@@ -321,9 +372,16 @@ class DrawnCard {
 		drawnCard.appendChild(textContainer);
 
 		var showImage =document.createElement("img")
-		showImage.src = image.src;
+		showImage.src = card.image.src;
 		showImage.className = "cardImage";
 		drawnCard.appendChild(showImage);
+		console.log(card.image.src.length + " ");
+		if(card.image.src.length  > 0){
+			showImage.style.display = "block";
+		}
+		else {
+			showImage.style.display = "none";
+		}
 
 
 		drawnCardCell.appendChild(drawnCard);
@@ -337,15 +395,15 @@ class DrawnCard {
 		hand.appendChild(drawnCardCell);
 
 		discard.onclick = function(){
-			var index = card.deck.cards.indexOf(card);
+			
 			card.drawn = "false";
 			card.cardObject.className = "card";
-			if(index >-1){			
-				card.deck.undrawn.push(card);
-				updateCardData(card);
-			}
-			discard.parentNode.remove();
+					
+			card.deck.undrawn.push(card);
+				
+			card.image.style.opacity = 1;
 			
+			discard.parentNode.remove();
 
 		}
 		

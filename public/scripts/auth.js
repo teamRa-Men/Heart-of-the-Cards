@@ -6,18 +6,21 @@ signupForm.addEventListener('submit', (e) => {
 	const password = signupForm['signup-password'].value;
 
 	auth.createUserWithEmailAndPassword(email, password).then(cred => {
+		console.log(cred);
 		console.log(cred.user);
 		const modal = document.querySelector('#cards-signup');
 		//M.Modal.getInstance(modal).close();
+
 		signupForm.reset();
 	})
-	})
+})
 
 const logout = document.querySelector('#logout');
 logout.addEventListener('click', (e) => {
 	e.preventDefault();
 	auth.signOut().then(() => {
 		console.log('user signed out');
+		loggedOut();
 	});
 })
 
@@ -29,10 +32,24 @@ loginForm.addEventListener('submit', (e) => {
 	const password = loginForm['login-password'].value;
 
 	auth.signInWithEmailAndPassword(email, password).then(cred => {
-		console.log(cred.user)
+		console.log(cred);
+		console.log(cred.user);
+		//loggedIn(cred.user);
 
 		const modal = document.querySelector('#cards-login');
 		//M.Modal.getInstance(modal).close();
 		loginForm.reset();
+
+		var user = firebase.auth().currentUser;
+
+		
+		if(user != null){
+			console.log("signed in " + user.uid);
+			loggedIn(user.uid);
+		}
+		else {
+			console.log("incorrect login credentials");
+		}
+
 	})
 })
