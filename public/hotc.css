@@ -10,6 +10,46 @@ body{
 	font-family: arial;
 }
 
+/* LOGIN PAGE AND REGISTRATION STYLE*/
+
+#cards-signup, #cards-login{
+	max-width: max-content;
+	margin: auto;
+	text-align: center;
+	font-family: arial;
+	font-size: 14px;
+}
+
+	#cards-signup input , #cards-login input{
+		width: 30vw;
+		height: 2em;
+		border-radius: 5%;
+		opacity: 0.5;
+		color: black;
+		font-size: 14px;
+		margin: 10px;
+	}
+
+	#cards-signup label , #cards-login label{
+		font-size: 20px;
+		margin-left: 42% ;
+		margin-right: 42% ;
+		text-align: center;
+		font-size: 14px;
+
+	}
+
+	#cards-signup button, #cards-login button{
+		width: 150px;
+		height: 40px;
+		border-radius: 5%;
+		background-color: rgb(212, 163, 135);
+		font-size: 14px;
+	}
+
+
+
+
 .button:hover{
 
     color:red;
