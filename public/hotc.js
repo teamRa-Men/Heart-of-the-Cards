@@ -277,16 +277,23 @@ class Card {
 		var imageUpload = document.createElement("INPUT");
 		imageUpload.type = "file";
 		imageUpload.id = "image" + key;
-		imageUpload.style.width="80px";
-		
-		imageUpload.style.className = "button";
+		imageUpload.className = "button";
+		imageUpload.style.width="90px";
 
+		var inputLabel = document.createElement("LABEL");
+		inputLabel.htmlFor = imageUpload;
+		inputLabel.innerHTML = "choose image";
+		inputLabel.className = "button";
+		imageUpload.appendChild(inputLabel);
+		
+
+		
 
 	
 
 		var upload = document.createElement("INPUT");
 		upload.type = "button";
-		upload.value = "save card";	
+		upload.value = "apply image";	
 		upload.className = "button";
 
 		var imageObject = document.createElement("img");
