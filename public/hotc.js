@@ -65,9 +65,11 @@ function readDeck(deckRef){
 		var d = new Deck(key,deckText,cardKeys);
 		if(decks.length>0){
 			d.deckRow.style.display = "none";
+			d.cardContainer.style.display = "none";
 		}
 		else{
 			d.deckRow.style.display = "block";
+			d.cardContainer.style.display = "block";
 		}
 		
 		decks.push(d);
@@ -176,6 +178,20 @@ class Deck {
 		deckCell.appendChild(drawButton);
 		
 
+		var cardContainerCell = document.createElement("td");
+		 
+		
+		var cardContainer = document.createElement("div");
+		cardContainerCell.appendChild(cardContainer);
+		cardContainerCell.className = "cell";
+
+		cardContainer.className = "cardContainer";
+
+		deckRow.appendChild(cardContainerCell);
+
+		this.cardContainer = cardContainer;
+
+
 		var cards = [];
 		
 		
@@ -277,7 +293,7 @@ class Card {
 		var imageUpload = document.createElement("INPUT");
 		imageUpload.type = "file";
 		imageUpload.id = "image" + key;
-		imageUpload.className = "button";
+		//imageUpload.className = "button";
 		imageUpload.style.width="90px";
 
 		var inputLabel = document.createElement("LABEL");
@@ -308,7 +324,7 @@ class Card {
 		cardCell.appendChild(imageUpload);
 		cardCell.appendChild(upload);
 		
-		deck.deckRow.appendChild(cardCell);
+		deck.cardContainer.appendChild(cardCell);
 		
 		
 

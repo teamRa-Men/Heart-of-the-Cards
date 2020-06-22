@@ -13,6 +13,7 @@ signupForm.addEventListener('submit', (e) => {
 
 		signupForm.reset();
 	})
+	console.log(auth);
 })
 
 const logout = document.querySelector('#logout');

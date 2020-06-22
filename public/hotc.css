@@ -2,7 +2,7 @@ body{
 
 	background-image: url(./img/table_background.png);
 	background-size: 2000px,2000px;
-
+	overflow: hidden;
 
 }
 
@@ -106,20 +106,27 @@ body{
 	float: right;
 
 	
-	
+	color:grey;
 	background:none;
 	font-weight: bold;
 	outline: none;
 	transition: 0.2s;
 }
 
+.cardContainer{
+	overflow-x: auto;
+	overflow-y: hidden;
+	width: 70vw;
+	
+}
+
 .deleteDeckButton:hover{
-	color:red;
+	color:white;
 	transition: 0.2s;
 }
 
 .deleteCardButton:hover{
-	color:red;
+	color:white;
 	transition: 0.2s;
 }
 
@@ -135,36 +142,41 @@ body{
 }
 
 
+
 .card{
 	width: 120px;
 	height: 180px;
 	border-radius: 10px;
 	background-color: black;
-	
+	background-image: url(./img/Cf1.png);
+	background-size: 100% 100%;
 	transition: 0.2s;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.9)
 }
 
 .cell{
 	width: 140px;
-	height: 300px;
+	height: 220px;
 }
 
 .deck{
 	width: 120px;
 	height: 180px;
-	background-image: url(./img/Cb1yelor.png);
+	background-image: url(./img/Cb1.png);
+	
 	background-size: 100% 100%;
 	border-radius: 10px;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.9)
+	box-shadow: 0 1px 3px rgba(0,0,0,0.9);
 	transition: 0.2s;
 }
 .cardDrawn{
 	width: 120px;
 	height: 180px;
-
+	background-image: url(./img/Cf1.png);
+	background-size: 100% 100%;
+	
 	border-radius: 10px;
-	background-color: rgb(0,0,0);
+	
 	opacity: 0.5;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.9);
 	transition: 0.2s;
