@@ -9,7 +9,9 @@ var deckList = document.getElementById("deckList");
 
 var cardTable = document.getElementById("card_table");
 cardTable.style.display = "none";
+//cardTable.style.display = "block";
 login_registration.style.display = "block";
+//login_registration.style.display = "none";
 
 function loggedOut(){
 	user = "";
@@ -135,22 +137,22 @@ class Deck {
 
 		var deckInput = document.createElement("INPUT");
 		deckInput.className="textInput";
-		deckInput.placeholder = "question " + decks.length;
+		deckInput.placeholder = "unamed card " + decks.length;
 
 		
 		var addCardButton = document.createElement("INPUT");
 		addCardButton.type = "button";
-		addCardButton.value = "add";
-		addCardButton.className = "button";;
+		addCardButton.value = "add card";
+		addCardButton.className = "button";
 
 		var deleteButton = document.createElement("INPUT");
 		deleteButton.type = "button";
 		deleteButton.value = "x";
-		deleteButton.className = "deleteButton";
+		deleteButton.className = "deleteDeckButton";
 		
 		var drawButton = document.createElement("INPUT");
 		drawButton.type = "button";
-		drawButton.value = "draw";
+		drawButton.value = "draw card";
 		drawButton.className = "button";
 
 		var deckListCell = document.createElement("div");
@@ -175,8 +177,7 @@ class Deck {
 		
 
 		var cards = [];
-		var undrawn = cards;
-		this.undrawn = undrawn;
+		
 		
 		this.cards = cards;
 		var deck = this;
@@ -212,8 +213,8 @@ class Deck {
 		addCardButton.onclick = function(){
 			var newCard =  new Card(deck);
 			cards.push(newCard);
-			undrawn.push(newCard);
-			newCard.text.placeholder = "unamed card " + decks.length;
+			
+			newCard.text.placeholder = "unamed card " + cards.length;
 		}
 
 		deleteButton.onclick = function(){
@@ -224,14 +225,14 @@ class Deck {
 		}
 		
 		drawButton.onclick = function(){
-			if(undrawn.length > 0){
-				var index = Math.floor(undrawn.length*Math.random());
-				undrawn[index].drawn = "true";
+			if(cards.length > 0){
+				var index = Math.floor(cards.length*Math.random());
+				cards[index].drawn = "true";
 				
-				undrawn[index].undrawnCard = new DrawnCard(this,undrawn[index]);
-				undrawn[index].image.style.opacity = 0.2;
-				undrawn[index].cardObject.className = "cardDrawn";
-				undrawn.splice(index,1);
+				cards[index].undrawnCard = new DrawnCard(this,cards[index]);
+				cards[index].image.style.opacity = 0.2;
+				cards[index].cardObject.className = "cardDrawn";
+				cards.splice(index,1);
 			}
 			else{
 				console.log("all drawn");
@@ -271,19 +272,21 @@ class Card {
 		var deleteCard = document.createElement("INPUT");
 		deleteCard.type = "button";
 		deleteCard.value = "x";	
-		deleteCard.className = "deleteButton";
+		deleteCard.className = "deleteCardButton";
 
 		var imageUpload = document.createElement("INPUT");
 		imageUpload.type = "file";
 		imageUpload.id = "image" + key;
-		imageUpload.style.width="90px";
+		imageUpload.style.width="80px";
+		
+		imageUpload.style.className = "button";
 
 
 	
 
 		var upload = document.createElement("INPUT");
 		upload.type = "button";
-		upload.value = "upload";	
+		upload.value = "save card";	
 		upload.className = "button";
 
 		var imageObject = document.createElement("img");
@@ -310,7 +313,7 @@ class Card {
 		this.key = key;
 		this.drawn = "false";
 		this.image = imageObject;
-
+		this.undrawn = null;
 		if(!key){
 			this.key = addCardData(this,user);
 		}
@@ -327,10 +330,14 @@ class Card {
 			deleteCard.parentNode.remove();
 			deleteCardData(card);
 			var index = deck.cards.indexOf(this);
-			var undrawnIndex = deck.undrawn.indexOf(this);
+			var undrawnIndex = deck.cards.indexOf(this);
+			card.parentNode.remove();
+			if(this.undrawn){
+				this.undrawn.remove();
+			}
 
 			deck.cards.splice(index,1);
-			deck.undrawn.splice(undrawnIndex,1);
+			
 		}
 
 		cardInput.onkeyup = function(event){
@@ -355,7 +362,7 @@ class DrawnCard {
 
 		var drawnCardCell = document.createElement("td");
 		var drawnCard = document.createElement("div");
-		
+		drawnCardCell.className = "cell";
 		drawnCard.className = "card";
 
 		var text = card.text.value;
@@ -397,10 +404,10 @@ class DrawnCard {
 		discard.onclick = function(){
 			
 			card.drawn = "false";
-			card.cardObject.className = "card";
+			
 					
-			card.deck.undrawn.push(card);
-				
+			card.deck.cards.push(card);
+			card.cardObject.className = "card";
 			card.image.style.opacity = 1;
 			
 			discard.parentNode.remove();
