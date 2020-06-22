@@ -5,15 +5,38 @@ signupForm.addEventListener('submit', (e) => {
 	const email = signupForm['signup-email'].value;
 	const password = signupForm['signup-password'].value;
 
-	auth.createUserWithEmailAndPassword(email, password).then(cred => {
+	if (email === "")
+	{
+		alert('Please type email.')
+	}
+	else if (password === "")
+	{
+		alert('Please type password.')
+	}
+	else
+	{
+		auth.createUserWithEmailAndPassword(email, password).then(cred => {
 		console.log(cred);
 		console.log(cred.user);
 		const modal = document.querySelector('#cards-signup');
 		//M.Modal.getInstance(modal).close();
+		alert('Account Registered.');
+		
 
+		}).catch(function(error) {
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		console.log(errorMessage + " error");
+	
+	   		alert(errorMessage);
+		
+		console.log(error);
+		console.log(cred);
+		console.log(cred.user);
+		const modal = document.querySelector('#cards-signup');
 		signupForm.reset();
-	})
-	console.log(auth);
+		});
+	}
 })
 
 const logout = document.querySelector('#logout');
@@ -32,7 +55,19 @@ loginForm.addEventListener('submit', (e) => {
 	const email = loginForm['login-email'].value;
 	const password = loginForm['login-password'].value;
 
-	auth.signInWithEmailAndPassword(email, password).then(cred => {
+	
+
+	if (email === "")
+	{
+		alert('Please type email.')
+	}
+	else if (password === "")
+	{
+		alert('Please type password.')
+	}
+	else
+	{
+		auth.signInWithEmailAndPassword(email, password).then(cred => {
 		console.log(cred);
 		console.log(cred.user);
 		//loggedIn(cred.user);
@@ -45,12 +80,16 @@ loginForm.addEventListener('submit', (e) => {
 
 		
 		if(user != null){
-			console.log("signed in " + user.uid);
-			loggedIn(user.uid);
+		console.log("signed in " + user.uid);
+		loggedIn(user.uid);
 		}
-		else {
-			console.log("incorrect login credentials");
+		}).catch(function(error) {
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		if ( errorCode != '' || errorCode != "" ) {
+		   	alert(errorMessage);
 		}
-
-	})
+		console.log(error);
+		});
+	}
 })

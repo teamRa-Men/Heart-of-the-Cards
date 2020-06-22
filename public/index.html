@@ -4,11 +4,12 @@
  <meta charset="UTF-8">
  <link rel="stylesheet" href = "hotc.css">
  <title>Heart of the Cards</title>
+
 </head>
 <body class = "background">
 
   <center style=" top:0; ">
-    <h1 class = "title"> Heart of the Cards </h1>
+    <img src = "img/Web_logo.png" style="height:100px;">
   </center>
 
 
@@ -17,9 +18,11 @@
   <h3> Login </h3>
   <form id = "login-form">
   <label>Email </label><input type="text" placeholder="Email" name="eamil" id="login-email"> <br> <br>
-  <label>Password </label><input type="text" placeholder="Password" name="password" id="login-password"> <br> <br>
-  <button type="submit">Login</button>
-  <!--<button type="button">Register</button>--><br><br><br>
+  <label>Password </label><input type="text" placeholder="Password" name="password" id="login-password"> <br> 
+  <center>
+  <button type="submit" class = "button">sign in</button>
+</center>
+  <!--<button type="button">Register</button>--><br><br>
   </form>
   </div>
 
@@ -27,8 +30,10 @@
     <h3> Register </h3>
     <form id = "signup-form">
     <label>Email </label><input type="text" placeholder="Email" name="eamil" id="signup-email"> <br> <br>
-    <label>Password </label><input type="text" placeholder="Password" name="password" id="signup-password"> <br> <br>
-    <button type="submit">Register</button>
+    <label>Password </label><input type="text" placeholder="Password" name="password" id="signup-password"> <br> 
+    <center>
+    <button type="submit" class = "button">submit</button>
+    </center>
     </form>
   </div>
 </div>
@@ -47,10 +52,10 @@
 
 </form>
  <input class = "button" type = "button" value = "add deck" onclick = "addNewDeck()" style="left:10vw;top:70px;position: absolute;">
-<div id = "deckList" style="height:35vh;width:180px;left:10vw;top:100px;position: absolute; overflow-y:auto;">
+<div id = "deckList" style="margin-top:10px;height:29vh;width:180px;left:10vw;top:100px;position: absolute; overflow-y:auto;">
    
 </div>
-<div  style="left:30vw;top:80px;position: absolute;">
+<div  style="left:30vw;top:110px;position: absolute;">
 
   <table id = "hand"></table>
 </div>

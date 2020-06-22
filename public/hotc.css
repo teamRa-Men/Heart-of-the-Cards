@@ -6,6 +6,8 @@ body{
 
 }
 
+
+
 .title{
 	font-family: arial;
 }
@@ -38,55 +40,112 @@ body{
 		font-size: 14px;
 
 	}
-
+/*
 	#cards-signup button, #cards-login button{
 		width: 150px;
 		height: 40px;
 		border-radius: 5%;
 		background-color: rgb(212, 163, 135);
 		font-size: 14px;
-	}
+	/*}**/
 
 
 
 
 .button:hover{
-	float:center;
-	width: 100px;
+	
+	width: 110px;                                                                         
+	height: 29px;
 	padding: 5px;
 	border:none;
 	background-color: black;
 	opacity: 1;
 	color:black;
 	border-radius: 10px;
-  	margin-top:10px;
+  	margin-left:5px;
+  	margin-right: 5px;
+  	margin-bottom: 1px;
+  	margin-top: 1px;
  	font-weight: bold;
     color: white;
     outline: none;
     transition: 0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.9)
+    box-shadow: 0 1px 3px rgba(0,0,0,0.9);
+    text-align:center;
     
 }
 
 .button{
-	float:center;
+	
 	width: 100px;
+	height: 25px;
 	padding: 5px;
 	border:none;
 	background-color: black;
 	opacity: 0.5;
 	color:white;
 	border-radius: 10px;
-    margin-top:10px;
-    margin-left: 10px; 
+	
+    margin-left:10px;
+  	margin-right: 10px;
+  	margin-bottom: 3px;
+  	margin-top: 3px;
 
  	font-weight: bold;
     color: white;
     outline: none;
     transition: 0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.9)
+    box-shadow: 0 1px 3px rgba(0,0,0,0.9);
+    text-align:center;
 
     
+}
+
+.deckList:hover{
+	
+	width: 130px;
+	height: 19px;
+	padding: 5px;
+	border:none;
+	background-color: black;
+	opacity: 1;
+	color:black;
+	border-radius: 10px;
+  	margin-left:5px;
+  	margin-right: 5px;
+  	margin-bottom: 3px;
+  	margin-top: 3px;
+ 	font-weight: bold;
+    color: white;
+    outline: none;
+    transition: 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.9);
+    text-align:center;
+}
+
+.deckList{
+	
+	width: 120px;
+	height: 15px;
+	padding: 5px;
+	border:none;
+	background-color: black;
+	opacity: 0.5;
+	color:white;
+	border-radius: 10px;
+	
+    margin-left:10px;
+  	margin-right: 10px;
+  	margin-bottom: 5px;
+  	margin-top: 5px;
+
+ 	font-weight: bold;
+    color: white;
+    outline: none;
+    transition: 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.9);
+
+    text-align:center;
 }
 
 .deleteDeckButton{
@@ -104,9 +163,9 @@ body{
 .deleteCardButton{
 	border:none;
 	float: right;
+	margin:0px;
 
-	
-	color:grey;
+	color:black;
 	background:none;
 	font-weight: bold;
 	outline: none;
@@ -116,7 +175,10 @@ body{
 .cardContainer{
 	overflow-x: auto;
 	overflow-y: hidden;
-	width: 70vw;
+	margin-top:20px;
+	margin-left: 20px;
+	width: 80vw;
+	height: 280px;
 	
 }
 
@@ -133,7 +195,8 @@ body{
 .cardImage{
 	width: 100px;
 	height: 100px;
-	padding: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 	
 	object-fit: cover;
 	display: none;
@@ -146,17 +209,22 @@ body{
 .card{
 	width: 120px;
 	height: 180px;
+	margin-bottom:10px;
 	border-radius: 10px;
 	background-color: black;
 	background-image: url(./img/Cf1.png);
 	background-size: 100% 100%;
-	transition: 0.2s;
+	transition: 0.1s;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.9)
+	
 }
+
+
 
 .cell{
 	width: 140px;
 	height: 220px;
+
 }
 
 .deck{
@@ -167,40 +235,72 @@ body{
 	background-size: 100% 100%;
 	border-radius: 10px;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.9);
-	transition: 0.2s;
+	transition: 0.1s;
+	margin-bottom:10px;
 }
+
+
+
 .cardDrawn{
 	width: 120px;
 	height: 180px;
 	background-image: url(./img/Cf1.png);
 	background-size: 100% 100%;
-	
+
 	border-radius: 10px;
-	
+	margin-bottom:10px;
 	opacity: 0.5;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.9);
-	transition: 0.2s;
+	transition: 0.1s;
+	margin-bottom:10px;
 }
 
 .textInput{
 
-	display: block;
 	border: none;
-	border-right: none;
-	border-top: none;
-	background: none;
-	border-color:white;
-	border-width: 1px;
-    padding-top: 20px;
-    margin: 10px;
-    width: 100px;
-    height: 10px;
+	
+	background-color:rgb(50,50,50);
+	
+	border-radius: 10px;
+	
+    padding: 5px;
+    margin: 5%;
+    margin-top: 10px;
+    width: 80%;
+
+    position: relative;
+    height: 14px;
     color: white;
     text-align: center;
     outline: none;
     font-family: arial;
     font-size: 14px;
+    transition: 0.1s;
 }
+
+
+
+.textInput::placeholder{
+	color:white;
+}
+
 .background{
 	background-color: rgb(250,250,250);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #6D5C42;
+   border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+ 
+  background: #9D8D7A;
+  border-radius: 10px;
 }
