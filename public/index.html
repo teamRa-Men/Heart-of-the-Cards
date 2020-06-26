@@ -32,10 +32,11 @@
  <div id = "cards-login" class="tabcontent">
 
   <form id = "login-form">
-  <label>Email </label><input type="text" placeholder="Email" name="eamil" id="login-email"> <br> <br>
-  <label>Password </label><input type="text" placeholder="Password" name="password" id="login-password"> <br> 
   <center>
-  <button type="submit" class = "button">sign in</button>
+  <label>Email </label><input type="text" placeholder="Email" name="eamil" id="login-email"> <br> <br>
+  <label>Password </label><input type="password" placeholder="Password" name="password" id="login-password"> <br> 
+  
+  <button type="submit" class = "button">Sign In</button>
 </center>
   <!--<button type="button">Register</button>-->
   </form>
@@ -44,14 +45,15 @@
   <div id = "cards-signup" class="tabcontent">
 
     <form id = "signup-form">
-    <label>Email </label><input type="text" placeholder="Email" name="eamil" id="signup-email"> <br> <br>
-    <label>Password </label><input type="text" placeholder="Password" name="password" id="signup-password"> <br> 
     <center>
-    <button type="submit" class = "button">create account</button>
+    <label>Email </label><input type="text" placeholder="Email" name="eamil" id="signup-email"> <br> <br>
+    <label>Password </label><input type="password" placeholder="Password" name="password" id="signup-password"> <br> 
+    
+    <button type="submit" class = "button">Create Account</button>
     </center>
     </form>
   </div>
-
+<center>
   <!--About HTML Start-->
   <div class="about">
     <p> Heart of the Cards is the website that picks up random cards written by user. This will help some user who wants to decide between more than one name, subject or paragraph such as deciding today’s dinner or fortune telling for fun.</p>
@@ -60,10 +62,11 @@
 
     <p> 1. Sign up a new account and sign in. </p>
 
-    <p> 2. add a new deck. add cards as you want and customize them by adding image, typing name and text. </p>
+    <p> 2. Add a new deck. Add cards as you want and customize them by adding image, typing name and text. </p>
 
-    <p> 3. press 'draw card' and website will pick one for you! </p>
+    <p> 3. Tap on the deck and website will pick a card for you! </p>
   </div>
+</center>
   <!--About HTML End-->
 
 </div>
@@ -74,7 +77,7 @@
 <div id = "select_background" class= "select_background">
   
     <table>
-      <tr style="position: fixed; top:35vh; left:30vw;">
+      <tr style="position: fixed; top:35vh; left:33vw;">
         <td>
           <input type = "button" class = "background1" id = "background1">
         </td>
@@ -94,18 +97,18 @@
   <div id = "card_table" style="transition: 0.2s;">
 
   <div id="logout">
-    <button class = "button" type="click" style="right:20px;  top:20px; position: absolute;">logout</button>
+    <button class = "button" type="click" style="right:20px;  top:20px; position: absolute;">Logout</button>
   </div>
   <br><br>
 
 
 
 </form>
- <input class = "button" type = "button" value = "add deck" onclick = "addNewDeck()" style="left:5vw;top:70px;position: absolute;">
-<div id = "deckList" style="margin-top:10px;height:29vh;width:180px;left:5vw;top:100px;position: absolute; overflow-y:auto;">
+ <input class = "button" type = "button" value = "Add Deck" onclick = "addNewDeck()" style="left:5vw;top:70px;position: absolute;">
+<div id = "deckList" style="margin-top:10px;height:29vh;width:180px;left:30px;top:100px;position: absolute; overflow-y:auto;">
    
 </div>
-<div  style="left:25vw;top:120px;position: absolute;">
+<div  style="left:250px;top:120px;position: absolute;">
 
   <table id = "hand"></table>
 </div>

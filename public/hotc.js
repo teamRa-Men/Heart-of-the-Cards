@@ -252,13 +252,13 @@ class Deck {
 
 		var deckInput = document.createElement("INPUT");
 		deckInput.className="textInput";
-		deckInput.placeholder = "your question";
+		deckInput.placeholder = "Add Text";
 
 
 		
 		var addCardButton = document.createElement("INPUT");
 		addCardButton.type = "button";
-		addCardButton.value = "add card";
+		addCardButton.value = "Add Card";
 		addCardButton.className = "button";
 
 		var deleteButton = document.createElement("INPUT");
@@ -278,13 +278,14 @@ class Deck {
 		
 		var deckListText = document.createElement("INPUT");
 		deckListText.type = "text";
-		deckListText.width="0px";
 		
 		
-		deckListText.placeholder = "your question";
+		
+		deckListText.placeholder = "Add Text";
 		
 		
 		deckListText.className = "button";
+		deckListText.width = "120px";
 
 		deckListCell.appendChild(deckListText);
 		deckListCell.appendChild(deleteButton);
@@ -314,7 +315,7 @@ class Deck {
 		var selectBackgroundButton = document.createElement("INPUT");
 		selectBackgroundButton.type = "button";
 		selectBackgroundButton.className = "button";
-		selectBackgroundButton.value = "choose back";
+		selectBackgroundButton.value = "Choose Back";
 		deckCell.appendChild(selectBackgroundButton);
 
 		this.cardContainer = cardContainer;
@@ -388,7 +389,7 @@ class Deck {
 				var newCard =  new Card(deck, key, cardFrontBackground);
 				cards.push(newCard);
 				console.log("card drawn");
-				newCard.text.placeholder = "your option";
+				newCard.text.placeholder = "Add Text";
 			}
 		}
 
@@ -473,7 +474,7 @@ class Card {
 		var cardInput = document.createElement("INPUT");
 		cardInput.className="textInput";
 		cardInput.type = "text";
-		cardInput.placeholder = "your option ";
+		cardInput.placeholder = "Add Text ";
 
 		var cardCell = document.createElement("td");
 		cardCell.className = "cell";
@@ -485,7 +486,7 @@ class Card {
 
 		var deleteCard = document.createElement("INPUT");
 		deleteCard.type = "button";
-		deleteCard.value = "delete";	
+		deleteCard.value = "Delete";	
 		deleteCard.className = "button";
 
 
@@ -637,7 +638,7 @@ class HandCard {
 
 		var discard = document.createElement("INPUT");
 		discard.type = "button";
-		discard.value = "discard";
+		discard.value = "Discard";
 		discard.className="button";
 		cell.appendChild(discard);
 
@@ -649,7 +650,7 @@ class HandCard {
 
 
 		discard.onclick = function(){
-			card.deleteCard.style.display = "block";
+			card.deleteCard.style = "button";
 			card.drawn = "false";
 			
 		    
