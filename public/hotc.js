@@ -11,14 +11,28 @@ var deckList = document.getElementById("deckList");
 
 var cardTable = document.getElementById("card_table");
 cardTable.style.display = "none";
-cardTable.style.display = "block";
+//cardTable.style.display = "block";
 login_registration.style.display = "block";
-login_registration.style.display = "none";
+//login_registration.style.display = "none";
 
 function loggedOut(){
 	user = "";
 	login_registration.style.display = "block";
+	for(var i = 0; i < decks.length; i++){
+		decks[i].deckRow.remove();
+		decks[i].deckListCell.remove();
+		decks[i].deckObject.remove();
+	}
+	decks = [];
+	for(var i = 0; i < handCards.length; i++){
+		handCards[i].cell.remove();
+		handCards[i].handCard.remove();
+	}
+	handCards = [];
 	cardTable.style.display = "none";
+
+
+
 }
 
 function loggedIn(userId){
@@ -67,11 +81,11 @@ function readDeck(deckRef){
 		var d = new Deck(key,deckText,cardKeys);
 		if(decks.length>0){
 			d.deckRow.style.display = "none";
-			d.cardContainer.style.display = "none";
+			
 		}
 		else{
 			d.deckRow.style.display = "block";
-			d.cardContainer.style.display = "block";
+			
 		}
 
 
@@ -95,6 +109,7 @@ function readCard(card, deckKey, key){
  			var childkey=childSnapshot.key;
  			var key = snapshot.key;
 
+
 			var data = childSnapshot.val();
 			
 
@@ -110,48 +125,95 @@ function readCard(card, deckKey, key){
 	
 }
 
+var cardFrontBackground = "url(./img/Cf1yelor.png)";
+var cardBackground = "url(./img/Cb1yelor.png)";
+		
+		
+var background1 = document.getElementById("background1");
+background1.onclick=function(){
+		
+	cardFrontBackground = "url(./img/Cf1.png)";
+	for(var j = 0; j< decks[j].decks.length; j++){
+	console.log("deck back");
+		decks[j].style.backgroundImage = "url(./img/Cb1.png)";
+		cardBackground = "url(./img/Cb1.png)";
+		for(var i = 0; i < decks[j].cards.length; i++){
+			decks[j].cards[i].cardObject.style.backgroundImage = cardFrontBackground;
+			console.log("card back");
+		}
+		for(var i = 0; i < drawnCards.length; i++){
+			decks[j].drawnCards[i].cardObject.style.backgroundImage = cardFrontBackground;
+		}
+	}
+}
+
+var background2 = document.getElementById("background2");
+	background2.onclick=function(){
+		
+			
+	cardFrontBackground = "url(./img/Cf1yelor.png)";
+	cardBackground = "url(./img/Cb1yelor.png)";
+	for(var j = 0; j< decks.length; j++){
+		console.log("deck back");
+		decks[j].deckObject.style.backgroundImage = "url(./img/Cb1yelor.png)";
+		for(var i = 0; i < decks[j].cards.length; i++){
+			decks[j].cards[i].cardObject.style.backgroundImage = cardFrontBackground;
+			console.log("card back");
+		}
+		for(var i = 0; i < decks[j].drawnCards.length; i++){
+			decks[j].drawnCards[i].cardObject.style.backgroundImage = cardFrontBackground;
+		}
+	}
+}
+
+var background3 = document.getElementById("background3");
+background3.onclick=function(){
+	console.log("deck back");
+			
+	cardFrontBackground = "url(./img/CfYugioh.png)";
+	cardBackground = "url(./img/CbYugioh.png)";
+	for(var j = 0; j< decks.length; j++){
+		decks[j].deckObject.style.backgroundImage = "url(./img/CbYugioh.png)";
+		for(var i = 0; i < decks[j].cards.length; i++){
+			decks[j].cards[i].cardObject.style.backgroundImage = cardFrontBackground;
+			console.log("card back");
+		}
+		for(var i = 0; i < decks[j].drawnCards.length; i++){
+			decks[j].drawnCards[i].cardObject.style.backgroundImage = cardFrontBackground;
+		}
+	}
+}
+
 
 
 
 function addNewDeck(){
 	if(decks.length < 10){
-		decks.push(new Deck());
+		var newDeck = new Deck();
+		decks.push(newDeck);
 	}
 }
 
-function flipIn(element, child0, child1, child2) {
+function flipIn(element, child0) {
   var w = 0;
-  var o = 0;
+  
   element.style.width = w+ 'px';
-  //cardElement.style.opacity = o;
+
   
   if(child0)
-    child0.style.opacity = o;
-  /*if(child1)
-  	child1.style.opacity = o;
-  if(child2)
-  	child2.style.opacity = o;
-  */
+    child0.style.opacity = 0;
+  
   var id = setInterval(frame, 0.1);
 
   function frame() {
     if (element.style.width == "120px") {
       clearInterval(id);
-      
+      child0.style.opacity = 1;
 
     } else {
       w++;
 
-      if(w > 100){
-      	o=Math.sqrt(w/120);
-    	//cardElement.style.opacity = o;
-    	if(child0)
-    		child0.style.opacity = o;
-    	//if(child1)
-    		//child1.style.opacity = o;
-    	//if(child2)
-    		//child2.style.opacity = o;
-  	  }
+      
       element.style.width = w + 'px';
       
     }
@@ -182,6 +244,7 @@ class Deck {
 		var deckObject = document.createElement("div");
 		
 		deckObject.className = "deck";
+		deckObject.style.backgroundImage = cardBackground;
 	
 		
 
@@ -206,7 +269,7 @@ class Deck {
 		var drawButton = document.createElement("INPUT");
 		drawButton.type = "button";
 		drawButton.value = "draw card";
-		drawButton.className = "button";
+		drawButton.className = "drawButton";
 
 		var deckListCell = document.createElement("div");
 		
@@ -234,7 +297,7 @@ class Deck {
 
 		
 		deckCell.appendChild(addCardButton);
-		deckCell.appendChild(drawButton);
+		deckObject.appendChild(drawButton);
 		
 
 		var cardContainerCell = document.createElement("td");
@@ -248,6 +311,12 @@ class Deck {
 
 		deckRow.appendChild(cardContainerCell);
 
+		var selectBackgroundButton = document.createElement("INPUT");
+		selectBackgroundButton.type = "button";
+		selectBackgroundButton.className = "button";
+		selectBackgroundButton.value = "choose back";
+		deckCell.appendChild(selectBackgroundButton);
+
 		this.cardContainer = cardContainer;
 
 
@@ -258,9 +327,10 @@ class Deck {
 		this.cards = cards;
 		this.drawnCards = drawnCards;
 		this.handCards = handCards;
+		this.deckObject = deckObject;
 
 		var deck = this;
-		this.deckRow = deckRow;
+		this.deckListCell = deckListCell;
 		this.text = deckInput;
 		this.deckRow = deckRow;
 		
@@ -276,6 +346,21 @@ class Deck {
 				cards.push(oldCard);
 			}
 		}
+
+		var selectBackground = document.getElementById("select_background");
+		 
+		selectBackgroundButton.onclick = function(){
+			
+			selectBackground.style.display = "block"; 
+		}
+
+		selectBackground.onclick= function(){
+			selectBackground.style.display = "none"; 
+		}
+
+
+		
+
 
 		flipIn(deckObject, deckInput,addCardButton, drawButton);
 		
@@ -300,9 +385,9 @@ class Deck {
 
 		addCardButton.onclick = function(){
 			if(cards.length < 40){
-				var newCard =  new Card(deck);
+				var newCard =  new Card(deck, key, cardFrontBackground);
 				cards.push(newCard);
-			
+				console.log("card drawn");
 				newCard.text.placeholder = "your option";
 			}
 		}
@@ -313,15 +398,26 @@ class Deck {
 			deleteDeckData(deck,user);
 
 		}
+
+		drawButton.onmouseenter = function(){
+			var back = document.getElementById("dark_background");
+			back.style.display = "block";
+		}
+
+		drawButton.onmouseleave = function(){
+			var back = document.getElementById("dark_background");
+			back.style.display = "none";
+		}
 		
 		drawButton.onclick = function(){
 			if(cards.length > 0){
 				var index = Math.floor(cards.length*Math.random());
 				cards[index].drawn = "true";
-				handCards.push(new HandCard(this,cards[index]));
+				handCards.push(new HandCard(this,cards[index],cardFrontBackground));
 				drawnCards.push(cards[index]);
 				cards[index].image.style.opacity = 0.2;
 				cards[index].cardObject.className = "cardDrawn";
+				cards[index].deleteCard.style.display = "none";
 				cards.splice(index,1);
 				
 			}
@@ -330,8 +426,8 @@ class Deck {
 			}
 		}	
 
-		deckListText.onclick = function(){
-
+		deckListText.onclick = async function(){
+			if(deckRow.style.display == "none"){
 			for(var i = 0; i < decks.length; i++){
 				
 				
@@ -341,22 +437,38 @@ class Deck {
 			deckRow.style.display = "block";
 			flipIn(deckObject, deckInput,addCardButton, drawButton);
 			for(var i = 0; i < cards.length; i++){
-				flipIn(cards[i].cardObject, cards[i].cardInput, cards[i].upload, cards[i].imageUpload);
+				cards[i].cardObject.style.width = "0px";
+				cards[i].cardInput.style.opacity = 0;
+				
 			}
-			for(var i = 0; i < drawnCards.length; i++){
-				flipIn(drawnCards[i].cardObject, drawnCards[i].cardInput, drawnCards[i].upload, drawnCards[i].imageUpload);
+			for(var i = 0; i < cards.length; i++){
+				
+				await flipIn(cards[i].cardObject, cards[i].cardInput);
+				await pause(100);
+				
+			}
+
+		
 			}
 			
 			
 		}
+
+		
+
+
+
 	}
 }
+
+const pause = time => new Promise(resolve => setTimeout(resolve, time))
 
 
 
 class Card {
 
-	constructor(deck, key){
+	constructor(deck, key, back){
+		console.log(back);
 
 		var cardInput = document.createElement("INPUT");
 		cardInput.className="textInput";
@@ -368,50 +480,39 @@ class Card {
 
 		var cardObject = document.createElement("div")
 		cardObject.className = "card";
+		cardObject.style.backgroundImage = back;
 		
 
 		var deleteCard = document.createElement("INPUT");
 		deleteCard.type = "button";
-		deleteCard.value = "x";	
-		deleteCard.className = "deleteCardButton";
+		deleteCard.value = "delete";	
+		deleteCard.className = "button";
 
 
 		var imageUpload = document.createElement("INPUT");
 		imageUpload.type = "file";
 		imageUpload.id = "image" + key;
-		imageUpload.className = "button";
-		imageUpload.style.width="90px";
+		imageUpload.accept = ".png, .jpg, .jpeg, .gif, .bmp";
+		imageUpload.style.width = "120px";
+		imageUpload.style.display = "none";
 		
-		//imageUpload.style.height="14px";
-		/*
-		var inputLabel = document.createElement("LABEL");
-		inputLabel.htmlFor = imageUpload;
-		inputLabel.innerHTML = "choose image";
-		inputLabel.className = "button";
-		imageUpload.appendChild(inputLabel);*/
 		
 
-		
-
-	
-
-		var upload = document.createElement("INPUT");
-		upload.type = "button";
-		upload.value = "apply image";	
-		upload.className = "button";
 
 		var imageObject = document.createElement("img");
 		imageObject.className = "cardImage";
+		imageObject.src = "img/empty.png"
 
 
 		cardObject.appendChild(cardInput);
 		cardObject.appendChild(imageObject);
 
-		cardCell.appendChild(deleteCard);
+		
 
 		cardCell.appendChild(cardObject);
 		cardCell.appendChild(imageUpload);
-		cardCell.appendChild(upload);
+		
+		cardCell.appendChild(deleteCard);
 		
 		deck.cardContainer.appendChild(cardCell);
 		
@@ -419,7 +520,7 @@ class Card {
 
 
 		this.cardObject = cardObject;
-
+		this.deleteCard = deleteCard;
 		this.deck = deck;
 		this.text = cardInput;
 		this.key = key;
@@ -442,9 +543,9 @@ class Card {
 		var card = this;
 
 		this.cardInput = cardInput;
-		this.upload = upload;
+	
 		this.imageUpload = imageUpload;
-		flipIn(cardObject, cardInput, upload,imageUpload);
+		flipIn(cardObject, cardInput);
 
 
 
@@ -460,11 +561,11 @@ class Card {
 			if(drawnIndex > -1){
 				deck.drawnCard[drawnIndex].drawnCardCell.remove();
 				deck.drawnCards.splice(drawnIndex,1);
-			}
+			}			
+		}
 
-
-			
-			
+		imageObject.onclick = function(){
+			imageUpload.click();
 		}
 
 		cardInput.onkeyup = function(event){
@@ -473,11 +574,12 @@ class Card {
         		updateCardData(card,user);	
     		}
 		}	
-		upload.onclick = function(event){
+
+		imageUpload.addEventListener('change', function(event){
 			uploadCardImage(imageUpload.files[0],key, imageObject );
 
 			imageObject.style.display="block";
-		}
+		});
 
 	}
 	
@@ -485,14 +587,23 @@ class Card {
 
 class HandCard {
 
-	constructor(deck, card){
+	constructor(deck, card, back){
 		this.card = card;
 
 		var cell = document.createElement("td");
 		var handCard = document.createElement("div");
 		cell.className = "cell";
 		handCard.className = "card";
+		handCard.style.backgroundImage=back;
+
+		handCard.backgroundImage = card.backgroundImage;
+		
+
+		handCard.style.zIndex=2;
+		handCard.style.position = "relative";
+
 		this.cell = cell;
+		this.handCard = handCard;
 		var text = card.text.value;
 		if(text == ""){
 			text = card.text.placeholder;
@@ -538,7 +649,7 @@ class HandCard {
 
 
 		discard.onclick = function(){
-			
+			card.deleteCard.style.display = "block";
 			card.drawn = "false";
 			
 		    

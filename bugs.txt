@@ -1,0 +1,3 @@
+bugs - retrieve card 
+missing add card
+image retrieval duplicate

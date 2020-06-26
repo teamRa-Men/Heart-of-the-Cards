@@ -1,21 +1,88 @@
 body{
 
 	background-image: url(./img/table_background.png);
-	background-size: 2000px,2000px;
+	background-size: 100%,100%;
 	overflow: hidden;
+	
 
 }
 
+.dark_background{
 
-
-.title{
-	font-family: arial;
+	position: relative;
+	z-index: 1;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+	background: rgba(0, 0, 0, 0.7); 
+	overflow: auto;
+	
+	display: none;
+	margin: 0;
+	left:0;
+	top:0;
+	transition: 0.5;
 }
+
+.select_background{
+
+	position: relative;
+	z-index: 3;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+	background: rgba(0, 0, 0, 0.7); 
+	overflow: auto;
+	
+	display: none;
+	margin: 0;
+	left:0;
+	top:0;
+	transition: 0.5;
+}
+
+
 
 /* LOGIN PAGE AND REGISTRATION STYLE*/
 
+.tab {
+	
+	top:110px;
+  	overflow: hidden;
+  		width: 300px;
+  			padding-bottom: 10px;
+  	
+}
+
+.tab button {
+	width: 150px;
+	font-weight: bold;
+  	font-size: 14px;
+  	background-color: #ccc;
+ 	border: none;
+  	outline: none;
+  	cursor: pointer;
+  	padding: 14px 16px;
+  	transition: 0.3s;
+}
+
+.tab button:hover {
+ 	background-color: #ddd;
+}
+
+.tab button.active {
+  	background-color: #f1f1f1;
+}
+
+.tabcontent {
+ 	display: none;
+  	padding: 6px 12px;
+
+}
+/* Tab CSS End */
+
 #cards-signup, #cards-login{
-	max-width: max-content;
+	width: 300px;
 	margin: auto;
 	text-align: center;
 	font-family: arial;
@@ -23,13 +90,15 @@ body{
 }
 
 	#cards-signup input , #cards-login input{
-		width: 30vw;
+		width: 300px;
 		height: 2em;
 		border-radius: 5%;
 		opacity: 0.5;
 		color: black;
 		font-size: 14px;
-		margin: 10px;
+		margin-top:5px;
+		margin-bottom:5px;
+		
 	}
 
 	#cards-signup label , #cards-login label{
@@ -40,54 +109,48 @@ body{
 		font-size: 14px;
 
 	}
-/*
-	#cards-signup button, #cards-login button{
-		width: 150px;
-		height: 40px;
-		border-radius: 5%;
-		background-color: rgb(212, 163, 135);
-		font-size: 14px;
-	/*}**/
+
+
+/* About CSS Start */
+.about {
+	width: 50vw;
+	margin-left: 25vw;
+	
+  	overflow: hidden;
+  	background-color: #ADD8E6;
+  	border-radius: 25px;
+  	text-align: center;
+  	padding: 18px 12px;
+  	border-top: none;
+  	font-family: arial;
+  	font-size: 14px;
+  	top:60vh;
+
+  	position: fixed;
+}
 
 
 
 
 .button:hover{
 	
-	width: 110px;                                                                         
-	height: 29px;
-	padding: 5px;
-	border:none;
-	background-color: black;
 	opacity: 1;
-	color:black;
-	border-radius: 10px;
-  	margin-left:5px;
-  	margin-right: 5px;
-  	margin-bottom: 1px;
-  	margin-top: 1px;
- 	font-weight: bold;
-    color: white;
-    outline: none;
-    transition: 0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.9);
-    text-align:center;
-    
+	
 }
 
 .button{
 	
-	width: 100px;
-	height: 25px;
-	padding: 5px;
+	width: 110px;
+	height:29px;
+	padding: 3px;
 	border:none;
 	background-color: black;
 	opacity: 0.5;
 	color:white;
 	border-radius: 10px;
 	
-    margin-left:10px;
-  	margin-right: 10px;
+    margin-left:5px;
+  	
   	margin-bottom: 3px;
   	margin-top: 3px;
 
@@ -104,7 +167,7 @@ body{
 .deckList:hover{
 	
 	width: 130px;
-	height: 19px;
+]
 	padding: 5px;
 	border:none;
 	background-color: black;
@@ -113,8 +176,7 @@ body{
 	border-radius: 10px;
   	margin-left:5px;
   	margin-right: 5px;
-  	margin-bottom: 3px;
-  	margin-top: 3px;
+  
  	font-weight: bold;
     color: white;
     outline: none;
@@ -178,7 +240,7 @@ body{
 	margin-top:20px;
 	margin-left: 20px;
 	width: 80vw;
-	height: 280px;
+	height: 250px;
 	
 }
 
@@ -193,15 +255,23 @@ body{
 }
 
 .cardImage{
-	width: 100px;
+	width: 80%;
 	height: 100px;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 10%;
+	padding-right: 10%;
 	
 	object-fit: cover;
-	display: none;
-	transition: 0.2s;
+	border-radius: 10px;
 	
+	transition: 0.1s;
+	
+}
+
+.cardImage:hover{
+	width: 84%;
+	padding-left: 8%;
+	padding-right: 8%;
+	cursor: pointer;
 }
 
 
@@ -209,10 +279,11 @@ body{
 .card{
 	width: 120px;
 	height: 180px;
-	margin-bottom:10px;
+	margin-bottom:5px;
 	border-radius: 10px;
 	background-color: black;
-	background-image: url(./img/Cf1.png);
+	background-image: url(./img/Cf1yelor.png);
+
 	background-size: 100% 100%;
 	transition: 0.1s;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.9)
@@ -228,15 +299,17 @@ body{
 }
 
 .deck{
+	position: relative;
+	z-index: 2;
 	width: 120px;
 	height: 180px;
-	background-image: url(./img/Cb1.png);
+	background-image: url(./img/Cb1yelor.png);
 	
 	background-size: 100% 100%;
 	border-radius: 10px;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.9);
 	transition: 0.1s;
-	margin-bottom:10px;
+	margin-bottom:5px;
 }
 
 
@@ -244,28 +317,30 @@ body{
 .cardDrawn{
 	width: 120px;
 	height: 180px;
-	background-image: url(./img/Cf1.png);
+	background-image: url(./img/Cf1yelor.png);
 	background-size: 100% 100%;
 
 	border-radius: 10px;
-	margin-bottom:10px;
-	opacity: 0.5;
+	margin-bottom:5px;
+	opacity: 0.2;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.9);
 	transition: 0.1s;
-	margin-bottom:10px;
+	
 }
 
 .textInput{
 
 	border: none;
 	
-	background-color:rgb(50,50,50);
+	background-color:rgba(20,20,20,0.5);
 	
 	border-radius: 10px;
 	
     padding: 5px;
-    margin: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-top: 10px;
+    margin-bottom: 5px;
     width: 80%;
 
     position: relative;
@@ -273,12 +348,14 @@ body{
     color: white;
     text-align: center;
     outline: none;
-    font-family: arial;
+  
     font-size: 14px;
     transition: 0.1s;
 }
 
-
+.textInput:hover{
+	background-color:rgba(20,20,20,1);
+}
 
 .textInput::placeholder{
 	color:white;
@@ -304,3 +381,96 @@ body{
   background: #9D8D7A;
   border-radius: 10px;
 }
+
+.drawButton{
+	width: 100%;
+	height: 60%;
+	opacity: 0;
+	cursor: pointer;
+	transition: :0.2;
+}
+
+.background1{
+	z-index: 4;
+	width: 120px;
+	height: 180px;
+	margin:10px;
+	border-radius: 10px;
+	background-color: none;
+	border:none;
+	outline: none;
+	background-image: url(./img/Cb1.png);
+	background-size: 100% 100%;
+	transition: 0.1s;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.9)
+	margin:20px;
+}
+.background2{
+	z-index: 4;
+	width: 120px;
+	height: 180px;
+	margin:10px;
+	border-radius: 10px;
+	background-color: none;
+	border:none;
+	outline: none;
+	background-image: url(./img/Cb1yelor.png);
+	background-size: 100% 100%;
+	transition: 0.1s;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.9)
+	
+}
+
+.background3{
+	z-index: 4;
+	width: 120px;
+	height: 180px;
+	margin:10px;
+	border-radius: 10px;
+	background-color: none;
+	border:none;
+	outline: none;
+	background-image: url(./img/CbYugioh.png);
+	background-size: 100% 100%;
+	transition: 0.1s;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.9)
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body{
+
+	background-image: url(./img/table_background.png);
+	background-size: 2000px,2000px;
+	overflow-x: hidden;
+
+}
+
+

@@ -60,11 +60,11 @@ function uploadCardImage(file, key, imageObject){
 	var name = "image";
 	var task = ref.child(name).put(file)
 	.then(snapshot => snapshot.ref.getDownloadURL())
-	.then(url => imageObject.src = url)
+		.then(url => imageObject.src = url)
 }
 
 function downloadCardImage(key, card){
-	
+
 	ref = firebase.storage().ref("/"+key+"/image");
 	ref.getDownloadURL()
 	.then(function(url){
@@ -78,9 +78,12 @@ function downloadCardImage(key, card){
 		
 		
 	})
-	
-	
+
+
 }
+	
+	
+
 
 
 

@@ -6,38 +6,88 @@
  <title>Heart of the Cards</title>
 
 </head>
-<body class = "background">
-
+<body  class = "background">
+<div id = "dark_background" class = "dark_background"></div>
   <center style=" top:0; ">
     <img src = "img/Web_logo.png" style="height:100px;">
   </center>
 
 
 <div  id = "login_registration" style="transition: 0.2s;">
- <div id = "cards-login">
-  <h3> Login </h3>
+
+<!--Tab HTML Start-->
+<center><table class="tab" >
+  <td>
+  <button class="tablinks" onclick="openLogin(event, 'cards-login')" id="defaultOpen">Login</button>
+</td>
+
+<td>
+  <button class="tablinks" onclick="openLogin(event, 'cards-signup')">Register</button>
+</td>
+</table>
+</center>
+
+<!--Tab HTML End-->
+
+ <div id = "cards-login" class="tabcontent">
+
   <form id = "login-form">
   <label>Email </label><input type="text" placeholder="Email" name="eamil" id="login-email"> <br> <br>
   <label>Password </label><input type="text" placeholder="Password" name="password" id="login-password"> <br> 
   <center>
   <button type="submit" class = "button">sign in</button>
 </center>
-  <!--<button type="button">Register</button>--><br><br>
+  <!--<button type="button">Register</button>-->
   </form>
   </div>
 
-  <div id = "cards-signup">
-    <h3> Register </h3>
+  <div id = "cards-signup" class="tabcontent">
+
     <form id = "signup-form">
     <label>Email </label><input type="text" placeholder="Email" name="eamil" id="signup-email"> <br> <br>
     <label>Password </label><input type="text" placeholder="Password" name="password" id="signup-password"> <br> 
     <center>
-    <button type="submit" class = "button">submit</button>
+    <button type="submit" class = "button">create account</button>
     </center>
     </form>
   </div>
+
+  <!--About HTML Start-->
+  <div class="about">
+    <p> Heart of the Cards is the website that picks up random cards written by user. This will help some user who wants to decide between more than one name, subject or paragraph such as deciding today’s dinner or fortune telling for fun.</p>
+
+    <p> How to play </p>
+
+    <p> 1. Sign up a new account and sign in. </p>
+
+    <p> 2. add a new deck. add cards as you want and customize them by adding image, typing name and text. </p>
+
+    <p> 3. press 'draw card' and website will pick one for you! </p>
+  </div>
+  <!--About HTML End-->
+
 </div>
 
+
+</div>
+
+<div id = "select_background" class= "select_background">
+  
+    <table>
+      <tr style="position: fixed; top:35vh; left:30vw;">
+        <td>
+          <input type = "button" class = "background1" id = "background1">
+        </td>
+         <td>
+          <input type = "button" class = "background2" id = "background2">
+        </td>
+        <td>
+          <input type = "button" class = "background3" id = "background3">
+        </td>
+      </tr>
+    
+    </table>
+ 
 
 </div>
 
@@ -55,12 +105,12 @@
 <div id = "deckList" style="margin-top:10px;height:29vh;width:180px;left:5vw;top:100px;position: absolute; overflow-y:auto;">
    
 </div>
-<div  style="left:25vw;top:110px;position: absolute;">
+<div  style="left:25vw;top:120px;position: absolute;">
 
   <table id = "hand"></table>
 </div>
 
-<div id = "editDeck" style="left:5vw;top:50vh;position: absolute;">
+<div id = "editDeck" style="left:30px;top:55vh;position: absolute;">
   
   <table id = "decks">
   
