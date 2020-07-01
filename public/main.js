@@ -44,6 +44,7 @@ function updateCardData(card,user){
 	console.log("updating card to database");
 	var cardText = card.text.value;
 	var cardDrawn = card.drawn;
+	console.log(card.drawn);
 
 	firebase.database().ref("/"+user+"/"+card.deck.key+"/"+card.key).update({
 		cardtext :cardText,
@@ -81,7 +82,27 @@ function downloadCardImage(key, card){
 
 
 }
+
+function downloadDrawnCardImage(key, card, drawnCard){
+
+	ref = firebase.storage().ref("/"+key+"/image");
+	ref.getDownloadURL()
+	.then(function(url){
+		drawnCard.image.src = url;
+		if(url.length  > 0){
+			drawnCard.image.style.display = "block";
+		}
+		else {
+			drawnCard.image.style.display = "none";
+		}
+		
+		
+	})
+
+
+}
 	
+
 	
 
 
